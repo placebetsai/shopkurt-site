@@ -31,7 +31,6 @@ export default function VariantSelector({ variants, productTitle, productImage }
   });
 
   function selectOption(optionName, optionValue) {
-    // Find variant that matches this option plus other currently selected options
     const newSelected = { ...selectedOptions, [optionName]: optionValue };
     const matchIndex = variants.findIndex((v) =>
       v.selectedOptions.every((opt) => newSelected[opt.name] === opt.value)
@@ -45,7 +44,7 @@ export default function VariantSelector({ variants, productTitle, productImage }
   const showDefaultTitle = !hasMultipleVariants && variants[0]?.title === 'Default Title';
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Price display */}
       <div className="product-price">
         <span className="price-current">
@@ -74,17 +73,17 @@ export default function VariantSelector({ variants, productTitle, productImage }
       {/* Variant option buttons */}
       {hasMultipleVariants &&
         Object.entries(optionGroups).map(([optionName, values]) => (
-          <div key={optionName} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div key={optionName} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <label
               style={{
-                fontSize: '0.85rem',
-                fontWeight: 600,
+                fontSize: '0.65rem',
+                fontWeight: 400,
                 textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                color: '#888',
+                letterSpacing: '0.2em',
+                color: '#4a4745',
               }}
             >
-              {optionName}: <span style={{ color: '#f5f5f5' }}>{selectedOptions[optionName]}</span>
+              {optionName}: <span style={{ color: '#f0ede8' }}>{selectedOptions[optionName]}</span>
             </label>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {[...values].map((value) => {
@@ -93,24 +92,16 @@ export default function VariantSelector({ variants, productTitle, productImage }
                   <button
                     key={value}
                     onClick={() => selectOption(optionName, value)}
-                    className="variant-btn"
-                    style={{
-                      padding: '10px 20px',
-                      border: isSelected ? '2px solid #00e676' : '1px solid #333',
-                      borderRadius: '8px',
-                      background: isSelected ? 'rgba(0, 230, 118, 0.1)' : '#111',
-                      color: isSelected ? '#00e676' : '#f5f5f5',
-                      fontSize: '0.875rem',
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                    }}
+                    className={`variant-pill ${isSelected ? 'selected' : ''}`}
                   >
                     {value}
                   </button>
                 );
               })}
             </div>
+            {optionName.toLowerCase() === 'size' && (
+              <button className="size-guide-link">Size Guide</button>
+            )}
           </div>
         ))}
 
@@ -118,17 +109,19 @@ export default function VariantSelector({ variants, productTitle, productImage }
       {!selectedVariant.availableForSale && (
         <div
           style={{
-            color: '#ff4757',
-            fontSize: '0.9rem',
-            fontWeight: 600,
-            padding: '8px 0',
+            fontSize: '0.7rem',
+            fontWeight: 400,
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            color: '#8a8580',
+            padding: '4px 0',
           }}
         >
-          Out of Stock
+          Currently Unavailable
         </div>
       )}
 
-      {/* Add to Cart / Buy Now */}
+      {/* Add to Bag / Buy Now */}
       <AddToCart
         variantId={numericId}
         title={productTitle + (!showDefaultTitle && hasMultipleVariants ? ` - ${selectedVariant.title}` : '')}
