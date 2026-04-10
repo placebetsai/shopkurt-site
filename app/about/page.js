@@ -1,88 +1,262 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'About Fashionistas.ai | Trending Products, Fast Shipping',
+  title: 'Our Story | Fashionistas.ai',
   description:
-    'About Fashionistas.ai. Founded by Israel Joffe, based in Boca Raton, FL. Trending products with fast US shipping and the best prices.',
+    'Fashionistas.ai is a curated fashion destination founded by Israel Joffe in Boca Raton, FL. Trending fashion, beauty, and accessories with fast US shipping.',
   openGraph: {
-    title: 'About Fashionistas.ai',
+    title: 'Our Story | Fashionistas.ai',
     description:
-      'Founded by Israel Joffe. Trending products, fast shipping, best prices.',
+      'Curated fashion. Founded by Israel Joffe. Fast US shipping.',
     url: 'https://fashionistas.ai/about',
+    images: ['/og-image.svg'],
   },
 };
 
 export default function AboutPage() {
+  const values = [
+    {
+      title: 'Quality',
+      text: 'Every piece is hand-selected for craftsmanship and style. We partner with trusted suppliers and ship from US-based warehouses for reliable, fast delivery.',
+    },
+    {
+      title: 'Style',
+      text: 'We track the pulse of fashion so you don\'t have to. From emerging trends to timeless essentials, our collections are curated with intention.',
+    },
+    {
+      title: 'Accessibility',
+      text: 'Great fashion shouldn\'t require a great fortune. We keep operations lean and pass the savings to you, with Best Offer on every listing.',
+    },
+  ];
+
   return (
-    <div className="container">
-      <div className="about-content">
-        <h1>About Fashionistas.ai</h1>
-
-        <p>
-          Fashionistas.ai is your destination for trending products at unbeatable
-          prices. We curate the best items across categories like kitchen
-          gadgets, beauty tools, phone accessories, pet products, LED lighting,
-          and fitness gear — all with fast shipping directly to your door.
-        </p>
-
-        <p>
-          Based in <strong>Boca Raton, Florida</strong>, Fashionistas.ai was founded by{' '}
-          <Link
-            href="/israel-joffe"
-            style={{ color: 'var(--accent)', textDecoration: 'underline' }}
-          >
-            Israel Joffe
-          </Link>{' '}
-          with a simple mission: make great products accessible without inflated
-          price tags.
-        </p>
-
-        <h2>Our Mission</h2>
-
-        <p>
-          We believe everyone deserves access to quality, trending products
-          without overpaying. By working directly with US-based warehouses and
-          keeping our operations lean, we cut out the middlemen and pass the
-          savings on to you. Most orders ship within 2 days — no long waits, no
-          mystery tracking numbers.
-        </p>
-
-        <h2>Why Fashionistas.ai?</h2>
-
-        <ul
+    <div style={{ background: '#050505', minHeight: '100vh' }}>
+      {/* Hero */}
+      <div
+        style={{
+          textAlign: 'center',
+          padding: '100px 24px 60px',
+          maxWidth: '800px',
+          margin: '0 auto',
+        }}
+      >
+        <h1
           style={{
-            color: 'var(--text-secondary)',
-            fontSize: '1.05rem',
-            lineHeight: '2',
-            paddingLeft: '24px',
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontWeight: '300',
+            color: '#fff',
+            letterSpacing: '0.35em',
+            textTransform: 'uppercase',
+            margin: 0,
+          }}
+        >
+          Our Story
+        </h1>
+        <div
+          style={{
+            width: '60px',
+            height: '1px',
+            background: '#c9a96e',
+            margin: '32px auto',
+          }}
+        />
+        <p
+          style={{
+            fontSize: '1.1rem',
+            color: '#aaa',
+            lineHeight: '1.9',
+            fontWeight: '300',
+          }}
+        >
+          Fashionistas.ai is a curated fashion destination for the modern woman.
+          We believe that style should be effortless, accessible, and never
+          compromised by price.
+        </p>
+      </div>
+
+      {/* Mission */}
+      <div
+        style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          padding: '40px 24px 60px',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '0.85rem',
+            fontWeight: '400',
+            color: '#c9a96e',
+            letterSpacing: '0.25em',
+            textTransform: 'uppercase',
             marginBottom: '24px',
           }}
         >
-          <li>Hand-picked products for quality, value, and trend relevance</li>
-          <li>US-based warehouses with 2-day shipping on most items</li>
-          <li>Best Offer enabled on every listing</li>
-          <li>Active across Shopify, eBay, and TikTok Shop</li>
-          <li>Real people, real support — no bots, no runaround</li>
-        </ul>
-
-        <h2>Our Promise</h2>
-
-        <p>
-          Best Offer is enabled on every listing. If you see something you love
-          but want a better deal, make us an offer. We&apos;re here to make it
-          work.
+          Our Mission
+        </h2>
+        <p
+          style={{
+            fontSize: '1.05rem',
+            color: '#999',
+            lineHeight: '1.9',
+            fontWeight: '300',
+          }}
+        >
+          Making trending fashion accessible with fast US shipping. We work
+          directly with US-based warehouses to deliver quality fashion, beauty
+          products, and accessories to your door within days, not weeks. No
+          mystery tracking, no inflated markups, just great style at honest
+          prices.
         </p>
+      </div>
 
-        <p>
-          Have questions? Reach out to us anytime. We&apos;re a small team that
-          genuinely cares about your experience.
-        </p>
-
-        <div style={{ marginTop: '48px', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-          <Link href="/products" className="btn btn-primary">
-            Start Shopping
+      {/* Founder */}
+      <div
+        style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          padding: '40px 24px 60px',
+          borderTop: '1px solid #1a1a1a',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '0.85rem',
+            fontWeight: '400',
+            color: '#c9a96e',
+            letterSpacing: '0.25em',
+            textTransform: 'uppercase',
+            marginBottom: '24px',
+          }}
+        >
+          The Founder
+        </h2>
+        <p
+          style={{
+            fontSize: '1.05rem',
+            color: '#999',
+            lineHeight: '1.9',
+            fontWeight: '300',
+          }}
+        >
+          Fashionistas.ai was founded by{' '}
+          <Link
+            href="/israel-joffe"
+            style={{
+              color: '#c9a96e',
+              textDecoration: 'none',
+              borderBottom: '1px solid rgba(201,169,110,0.3)',
+              transition: 'border-color 0.3s ease',
+            }}
+          >
+            Israel Joffe
           </Link>
-          <Link href="/israel-joffe" className="btn btn-outline">
+          , an entrepreneur based in Boca Raton, Florida. With a background in
+          competitive athletics and a passion for lean, technology-driven
+          businesses, Israel built Fashionistas.ai to bridge the gap between
+          high-end curation and everyday affordability.
+        </p>
+      </div>
+
+      {/* Values */}
+      <div
+        style={{
+          maxWidth: '1000px',
+          margin: '0 auto',
+          padding: '40px 24px 80px',
+          borderTop: '1px solid #1a1a1a',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '0.85rem',
+            fontWeight: '400',
+            color: '#c9a96e',
+            letterSpacing: '0.25em',
+            textTransform: 'uppercase',
+            textAlign: 'center',
+            marginBottom: '48px',
+          }}
+        >
+          Our Values
+        </h2>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '48px',
+          }}
+        >
+          {values.map((v) => (
+            <div key={v.title} style={{ textAlign: 'center' }}>
+              <h3
+                style={{
+                  fontSize: '1rem',
+                  fontWeight: '400',
+                  color: '#fff',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  marginBottom: '16px',
+                }}
+              >
+                {v.title}
+              </h3>
+              <p
+                style={{
+                  fontSize: '0.9rem',
+                  color: '#888',
+                  lineHeight: '1.8',
+                  fontWeight: '300',
+                }}
+              >
+                {v.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div
+        style={{
+          textAlign: 'center',
+          padding: '40px 24px 100px',
+          borderTop: '1px solid #1a1a1a',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+          <Link
+            href="/products"
+            style={{
+              display: 'inline-block',
+              padding: '16px 48px',
+              background: '#c9a96e',
+              color: '#050505',
+              fontSize: '0.8rem',
+              fontWeight: '500',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            Shop Now
+          </Link>
+          <Link
+            href="/israel-joffe"
+            style={{
+              display: 'inline-block',
+              padding: '16px 48px',
+              border: '1px solid #c9a96e',
+              color: '#c9a96e',
+              fontSize: '0.8rem',
+              fontWeight: '500',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+            }}
+          >
             Meet the Founder
           </Link>
         </div>

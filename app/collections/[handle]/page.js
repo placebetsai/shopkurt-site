@@ -1,16 +1,10 @@
+export const runtime = "edge";
 import Link from 'next/link';
 import ProductCard from '../../../components/ProductCard';
 import {
   getProductsByCollectionSorted,
   formatPrice,
 } from '../../../lib/shopify';
-
-const SORT_OPTIONS = [
-  { label: 'Newest', key: 'CREATED', reverse: true },
-  { label: 'Price: Low to High', key: 'PRICE', reverse: false },
-  { label: 'Price: High to Low', key: 'PRICE', reverse: true },
-  { label: 'Best Selling', key: 'BEST_SELLING', reverse: true },
-];
 
 function parseSortParam(sort) {
   switch (sort) {
@@ -33,7 +27,13 @@ export async function generateMetadata({ params }) {
     .replace(/\b\w/g, (c) => c.toUpperCase());
   return {
     title: `${title} | Fashionistas.ai`,
-    description: `Shop the ${title} collection at Fashionistas.ai. Trending products, fast shipping, best prices.`,
+    description: `Shop the ${title} collection at Fashionistas.ai. Curated fashion, beauty, and accessories with fast US shipping.`,
+    openGraph: {
+      title: `${title} | Fashionistas.ai`,
+      description: `Explore the ${title} collection. Curated fashion for the modern woman.`,
+      url: `https://fashionistas.ai/collections/${handle}`,
+      images: ['/og-image.svg'],
+    },
   };
 }
 
@@ -57,14 +57,41 @@ export default async function CollectionPage({ params, searchParams }) {
 
   if (!collection) {
     return (
-      <div className="container">
-        <div className="empty-state">
-          <h2>Collection Not Found</h2>
-          <p>This collection may no longer be available.</p>
+      <div style={{ background: '#050505', minHeight: '100vh' }}>
+        <div
+          style={{
+            textAlign: 'center',
+            padding: '120px 24px',
+          }}
+        >
+          <h2
+            style={{
+              fontSize: '1.2rem',
+              fontWeight: '300',
+              color: '#c9a96e',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Collection Not Found
+          </h2>
+          <p style={{ color: '#888', marginTop: '12px' }}>
+            This collection may no longer be available.
+          </p>
           <Link
             href="/collections"
-            className="btn btn-outline"
-            style={{ marginTop: '24px' }}
+            style={{
+              display: 'inline-block',
+              marginTop: '32px',
+              padding: '14px 40px',
+              border: '1px solid #c9a96e',
+              color: '#c9a96e',
+              fontSize: '0.8rem',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+            }}
           >
             Back to Collections
           </Link>
@@ -73,95 +100,162 @@ export default async function CollectionPage({ params, searchParams }) {
     );
   }
 
+  const sortOptions = [
+    { label: 'Newest', value: 'newest' },
+    { label: 'Price \u2191', value: 'price-asc' },
+    { label: 'Price \u2193', value: 'price-desc' },
+    { label: 'Best Selling', value: 'best-selling' },
+  ];
+
   return (
-    <div className="container">
-      <div className="page-header">
-        <h1>{collection.title}</h1>
-        {collection.description && <p>{collection.description}</p>}
+    <div style={{ background: '#050505', minHeight: '100vh' }}>
+      {/* Breadcrumb */}
+      <div
+        style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '24px 24px 0',
+        }}
+      >
+        <nav
+          style={{
+            fontSize: '0.75rem',
+            color: '#666',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+          }}
+        >
+          <Link
+            href="/"
+            style={{ color: '#888', textDecoration: 'none', transition: 'color 0.2s' }}
+          >
+            Home
+          </Link>
+          <span style={{ margin: '0 10px', color: '#444' }}>/</span>
+          <Link
+            href="/collections"
+            style={{ color: '#888', textDecoration: 'none', transition: 'color 0.2s' }}
+          >
+            Collections
+          </Link>
+          <span style={{ margin: '0 10px', color: '#444' }}>/</span>
+          <span style={{ color: '#c9a96e' }}>{collection.title}</span>
+        </nav>
       </div>
 
+      {/* Banner header */}
+      <div
+        style={{
+          textAlign: 'center',
+          padding: '60px 24px 20px',
+        }}
+      >
+        <h1
+          style={{
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontWeight: '300',
+            color: '#fff',
+            letterSpacing: '0.3em',
+            textTransform: 'uppercase',
+            margin: 0,
+          }}
+        >
+          {collection.title}
+        </h1>
+        {collection.description && (
+          <p
+            style={{
+              color: '#888',
+              fontSize: '0.95rem',
+              maxWidth: '600px',
+              margin: '16px auto 0',
+              lineHeight: '1.7',
+            }}
+          >
+            {collection.description}
+          </p>
+        )}
+        <p
+          style={{
+            fontSize: '0.8rem',
+            color: '#c9a96e',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            marginTop: '16px',
+          }}
+        >
+          {collection.products.length}{' '}
+          {collection.products.length === 1 ? 'PIECE' : 'PIECES'}
+        </p>
+        <div
+          style={{
+            width: '60px',
+            height: '1px',
+            background: '#c9a96e',
+            margin: '24px auto 0',
+          }}
+        />
+      </div>
+
+      {/* Sort */}
       {collection.products.length > 0 && (
         <div
           style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '0 24px',
             display: 'flex',
             justifyContent: 'flex-end',
-            marginBottom: '24px',
+            alignItems: 'center',
+            gap: '16px',
+            marginBottom: '32px',
           }}
         >
-          <div style={{ position: 'relative' }}>
-            <label
-              htmlFor="sort-select"
+          {sortOptions.map((opt) => (
+            <Link
+              key={opt.value}
+              href={`/collections/${handle}?sort=${opt.value}`}
               style={{
-                fontSize: '0.8rem',
-                color: 'var(--text-muted)',
-                marginRight: '8px',
+                fontSize: '0.75rem',
+                letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                letterSpacing: '0.05em',
+                color: sort === opt.value ? '#c9a96e' : '#666',
+                textDecoration: 'none',
+                borderBottom: sort === opt.value ? '1px solid #c9a96e' : '1px solid transparent',
+                paddingBottom: '4px',
+                transition: 'all 0.3s ease',
               }}
             >
-              Sort by
-            </label>
-            {/*
-              Sort links rendered as anchor tags for server-component compatibility.
-              Each option navigates to the same page with a different ?sort= param.
-            */}
-            <span
-              style={{
-                display: 'inline-flex',
-                gap: '8px',
-                flexWrap: 'wrap',
-              }}
-            >
-              {[
-                { label: 'Newest', value: 'newest' },
-                { label: 'Price: Low-High', value: 'price-asc' },
-                { label: 'Price: High-Low', value: 'price-desc' },
-                { label: 'Best Selling', value: 'best-selling' },
-              ].map((opt) => (
-                <Link
-                  key={opt.value}
-                  href={`/collections/${handle}?sort=${opt.value}`}
-                  style={{
-                    fontSize: '0.8rem',
-                    padding: '6px 14px',
-                    borderRadius: 'var(--radius-sm)',
-                    border:
-                      sort === opt.value
-                        ? '1px solid var(--accent)'
-                        : '1px solid var(--border)',
-                    color:
-                      sort === opt.value
-                        ? 'var(--accent)'
-                        : 'var(--text-secondary)',
-                    background:
-                      sort === opt.value
-                        ? 'var(--accent-glow)'
-                        : 'transparent',
-                    transition: 'all var(--transition)',
-                    textDecoration: 'none',
-                  }}
-                >
-                  {opt.label}
-                </Link>
-              ))}
-            </span>
-          </div>
+              {opt.label}
+            </Link>
+          ))}
         </div>
       )}
 
+      {/* Product grid */}
       {collection.products.length > 0 ? (
-        <div className="product-grid" style={{ paddingBottom: '80px' }}>
+        <div className="product-grid" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 24px 100px' }}>
           {collection.products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       ) : (
-        <div className="empty-state">
-          <h2>No Products in This Collection</h2>
+        <div style={{ textAlign: 'center', padding: '60px 24px 100px' }}>
+          <p style={{ color: '#888' }}>No products in this collection yet.</p>
           <Link
             href="/products"
-            className="btn btn-outline"
-            style={{ marginTop: '24px' }}
+            style={{
+              display: 'inline-block',
+              marginTop: '24px',
+              padding: '14px 40px',
+              border: '1px solid #c9a96e',
+              color: '#c9a96e',
+              fontSize: '0.8rem',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+            }}
           >
             Browse All Products
           </Link>

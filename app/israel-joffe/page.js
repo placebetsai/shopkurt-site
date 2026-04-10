@@ -5,11 +5,12 @@ export const metadata = {
   description:
     'Israel Joffe is an entrepreneur based in Boca Raton, FL. Founder of Fashionistas.ai and operator of multiple web properties including ihatecollege.com, placebets.ai, and hiddencameras.tv.',
   openGraph: {
-    title: 'Israel Joffe',
+    title: 'Israel Joffe | Fashionistas.ai',
     description:
       'Entrepreneur, founder of Fashionistas.ai and operator of multiple web properties.',
-    url: 'https://shopkurt.com/israel-joffe',
+    url: 'https://fashionistas.ai/israel-joffe',
     type: 'profile',
+    images: ['/og-image.svg'],
   },
 };
 
@@ -17,8 +18,8 @@ export default function IsraelJoffePage() {
   const sites = [
     {
       name: 'Fashionistas.ai',
-      url: 'https://shopkurt.com',
-      description: 'Trending products, fast shipping, best prices',
+      url: 'https://fashionistas.ai',
+      description: 'Curated fashion, beauty, and accessories',
     },
     {
       name: 'ihatecollege.com',
@@ -36,9 +37,9 @@ export default function IsraelJoffePage() {
       description: 'Spanish language television guides and reviews',
     },
     {
-      name: 'fashionistas.ai',
-      url: 'https://fashionistas.ai',
-      description: 'AI-curated women\'s fashion',
+      name: 'shopkurt.com',
+      url: 'https://shopkurt.com',
+      description: 'Trending products marketplace',
     },
     {
       name: 'hiddencameras.tv',
@@ -48,54 +49,173 @@ export default function IsraelJoffePage() {
   ];
 
   return (
-    <div className="container">
-      <div className="about-content">
-        <h1>Israel Joffe</h1>
-
-        <p style={{ fontSize: '1.2rem', color: 'var(--text)', fontWeight: '500' }}>
+    <div style={{ background: '#050505', minHeight: '100vh' }}>
+      {/* Header */}
+      <div
+        style={{
+          textAlign: 'center',
+          padding: '100px 24px 20px',
+          maxWidth: '800px',
+          margin: '0 auto',
+        }}
+      >
+        <h1
+          style={{
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontWeight: '300',
+            color: '#fff',
+            letterSpacing: '0.3em',
+            textTransform: 'uppercase',
+            margin: 0,
+          }}
+        >
+          Israel Joffe
+        </h1>
+        <p
+          style={{
+            fontSize: '0.85rem',
+            color: '#c9a96e',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            marginTop: '16px',
+          }}
+        >
           Entrepreneur &middot; Builder &middot; Boca Raton, FL
         </p>
+        <div
+          style={{
+            width: '60px',
+            height: '1px',
+            background: '#c9a96e',
+            margin: '32px auto',
+          }}
+        />
+      </div>
 
-        <h2>Background</h2>
-
-        <p>
+      {/* Background */}
+      <div
+        style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          padding: '0 24px 60px',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '0.85rem',
+            fontWeight: '400',
+            color: '#c9a96e',
+            letterSpacing: '0.25em',
+            textTransform: 'uppercase',
+            marginBottom: '24px',
+          }}
+        >
+          Background
+        </h2>
+        <p
+          style={{
+            fontSize: '1.05rem',
+            color: '#999',
+            lineHeight: '1.9',
+            fontWeight: '300',
+            marginBottom: '20px',
+          }}
+        >
           Israel Joffe is an entrepreneur and builder based in Boca Raton,
-          Florida. He is the founder of Fashionistas.ai, an e-commerce operation
-          spanning Shopify, eBay, and TikTok Shop, and operates a portfolio of
-          web properties across media, commerce, and technology.
+          Florida. He is the founder of Fashionistas.ai, a curated fashion
+          destination spanning Shopify, eBay, and TikTok Shop, and operates a
+          portfolio of web properties across media, commerce, and technology.
         </p>
-
-        <p>
+        <p
+          style={{
+            fontSize: '1.05rem',
+            color: '#999',
+            lineHeight: '1.9',
+            fontWeight: '300',
+          }}
+        >
           Before entering entrepreneurship, Israel was a competitive wrestler
           — a background that instilled discipline, relentless work ethic, and
           the ability to thrive under pressure. Those same qualities drive his
           approach to building businesses today.
         </p>
+      </div>
 
-        <h2>What He Builds</h2>
-
-        <p>
+      {/* What He Builds */}
+      <div
+        style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          padding: '40px 24px 60px',
+          borderTop: '1px solid #1a1a1a',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '0.85rem',
+            fontWeight: '400',
+            color: '#c9a96e',
+            letterSpacing: '0.25em',
+            textTransform: 'uppercase',
+            marginBottom: '24px',
+          }}
+        >
+          What He Builds
+        </h2>
+        <p
+          style={{
+            fontSize: '1.05rem',
+            color: '#999',
+            lineHeight: '1.9',
+            fontWeight: '300',
+            marginBottom: '20px',
+          }}
+        >
           Israel focuses on lean, profitable internet businesses. His approach
           combines automation, AI-assisted workflows, and direct-to-consumer
           e-commerce. He runs a multi-agent development system (Claude Code,
           Codex, Gemini, and Grok) to operate at speed without a large team.
         </p>
-
-        <p>
+        <p
+          style={{
+            fontSize: '1.05rem',
+            color: '#999',
+            lineHeight: '1.9',
+            fontWeight: '300',
+          }}
+        >
           His current focus areas include dropshipping with US-based warehouses
           for fast shipping, content-driven web properties monetized through
           advertising and affiliate partnerships, and AI-powered tools for
           prediction markets and fashion.
         </p>
+      </div>
 
-        <h2>Portfolio</h2>
-
+      {/* Portfolio */}
+      <div
+        style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          padding: '40px 24px 60px',
+          borderTop: '1px solid #1a1a1a',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '0.85rem',
+            fontWeight: '400',
+            color: '#c9a96e',
+            letterSpacing: '0.25em',
+            textTransform: 'uppercase',
+            marginBottom: '32px',
+          }}
+        >
+          Portfolio
+        </h2>
         <div
           style={{
             display: 'grid',
-            gap: '16px',
-            marginTop: '16px',
-            marginBottom: '32px',
+            gap: '2px',
           }}
         >
           {sites.map((site) => (
@@ -105,50 +225,115 @@ export default function IsraelJoffePage() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                display: 'block',
-                padding: '20px',
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius-sm)',
-                transition: 'all var(--transition)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '24px 28px',
+                background: '#0a0a0a',
+                textDecoration: 'none',
+                transition: 'background 0.3s ease',
               }}
             >
-              <strong style={{ color: 'var(--accent)', fontSize: '1rem' }}>
-                {site.name}
-              </strong>
-              <br />
-              <span
-                style={{
-                  color: 'var(--text-secondary)',
-                  fontSize: '0.9rem',
-                }}
-              >
-                {site.description}
-              </span>
+              <div>
+                <span
+                  style={{
+                    color: '#c9a96e',
+                    fontSize: '0.95rem',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  {site.name}
+                </span>
+                <span
+                  style={{
+                    display: 'block',
+                    color: '#666',
+                    fontSize: '0.8rem',
+                    marginTop: '4px',
+                    letterSpacing: '0.02em',
+                  }}
+                >
+                  {site.description}
+                </span>
+              </div>
+              <span style={{ color: '#333', fontSize: '1.2rem' }}>&rarr;</span>
             </a>
           ))}
         </div>
+      </div>
 
-        <h2>Public Records</h2>
-
-        <p>
+      {/* Public Records */}
+      <div
+        style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          padding: '40px 24px 60px',
+          borderTop: '1px solid #1a1a1a',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '0.85rem',
+            fontWeight: '400',
+            color: '#c9a96e',
+            letterSpacing: '0.25em',
+            textTransform: 'uppercase',
+            marginBottom: '24px',
+          }}
+        >
+          Public Records
+        </h2>
+        <p
+          style={{
+            fontSize: '1.05rem',
+            color: '#999',
+            lineHeight: '1.9',
+            fontWeight: '300',
+          }}
+        >
           Verified public records and documents are available through{' '}
           <a
             href="https://www.documentcloud.org/search/q:israel+joffe"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: 'var(--accent)', textDecoration: 'underline' }}
+            style={{
+              color: '#c9a96e',
+              textDecoration: 'none',
+              borderBottom: '1px solid rgba(201,169,110,0.3)',
+              transition: 'border-color 0.3s ease',
+            }}
           >
             DocumentCloud
           </a>
           .
         </p>
+      </div>
 
-        <div style={{ marginTop: '48px' }}>
-          <Link href="/about" className="btn btn-outline">
-            About Fashionistas.ai
-          </Link>
-        </div>
+      {/* CTA */}
+      <div
+        style={{
+          textAlign: 'center',
+          padding: '40px 24px 100px',
+          borderTop: '1px solid #1a1a1a',
+        }}
+      >
+        <Link
+          href="/about"
+          style={{
+            display: 'inline-block',
+            padding: '16px 48px',
+            border: '1px solid #c9a96e',
+            color: '#c9a96e',
+            fontSize: '0.8rem',
+            fontWeight: '500',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            textDecoration: 'none',
+            transition: 'all 0.3s ease',
+          }}
+        >
+          About Fashionistas.ai
+        </Link>
       </div>
     </div>
   );
