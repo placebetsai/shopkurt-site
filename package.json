@@ -1,0 +1,19 @@
+{
+  "name": "shopkurt-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:preview": "npx wrangler pages dev .vercel/output/static",
+    "pages:deploy": "npx wrangler pages deploy .vercel/output/static"
+  },
+  "dependencies": {
+    "next": "15.5.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@cloudflare/next-on-pages": "^1.13.0"
+  }
+}
