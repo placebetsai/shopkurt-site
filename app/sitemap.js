@@ -1,4 +1,3 @@
-export const runtime = "edge";
 import { getAllProductHandles, getAllCollectionHandles } from '../lib/shopify';
 
 const BASE_URL = 'https://fashionistas.ai';

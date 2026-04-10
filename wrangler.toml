@@ -1,6 +1,8 @@
-name = "shopkurt"
+name = "fashionistas"
+pages_build_output_dir = ".vercel/output/static"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
 SHOPIFY_STORE = "js0hy0-ux.myshopify.com"
+# SHOPIFY_ADMIN_TOKEN = set via env at build time

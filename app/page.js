@@ -1,4 +1,4 @@
-export const runtime = "edge";
+// Products fetched at build time, rebuilt every 5 min via ISR
 import Link from 'next/link';
 import { getProducts, formatPrice } from '../lib/shopify';
 
@@ -128,7 +128,7 @@ export default async function HomePage() {
         <div className="container">
           <h2>Join the List</h2>
           <p>Be the first to know about new arrivals, exclusive offers, and style inspiration.</p>
-          <form className="email-form" onSubmit={(e) => e.preventDefault()}>
+          <form className="email-form" action="#" method="GET">
             <input type="email" placeholder="Your email address" aria-label="Email address" />
             <button type="submit">Subscribe</button>
           </form>
@@ -141,7 +141,7 @@ export default async function HomePage() {
 function ProductCard({ product }) {
   const image = product.images.edges[0]?.node;
   const price = product.priceRangeV2.minVariantPrice;
-  const compareAt = product.compareAtPriceRange?.minVariantPrice;
+  const compareAt = product.compareAtPriceRange?.minVariantCompareAtPrice;
   const hasDiscount =
     compareAt && parseFloat(compareAt.amount) > parseFloat(price.amount);
 

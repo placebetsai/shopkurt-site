@@ -1,7 +1,6 @@
 import { getProducts } from '../../lib/shopify';
 import ProductsGrid from '../../components/ProductsGrid';
 
-export const runtime = "edge";
 
 export const metadata = {
   title: 'All Products | Fashionistas.ai',

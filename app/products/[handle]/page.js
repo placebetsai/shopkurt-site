@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
   const product = await getProduct(handle);
   if (!product) return { title: 'Product Not Found | Fashionistas.ai' };
 
-  const price = product.priceRangeV2.minVariantPrice;
+  const price = product.priceRangeV2.minPrice;
   const image = product.images.edges[0]?.node;
 
   return {

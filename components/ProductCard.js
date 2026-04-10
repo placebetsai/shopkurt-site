@@ -4,7 +4,7 @@ import { formatPrice } from '../lib/shopify';
 export default function ProductCard({ product }) {
   const image = product.images.edges[0]?.node;
   const price = product.priceRangeV2.minVariantPrice;
-  const compareAt = product.compareAtPriceRange?.minVariantPrice;
+  const compareAt = product.compareAtPriceRange?.minVariantCompareAtPrice;
   const hasDiscount =
     compareAt && parseFloat(compareAt.amount) > parseFloat(price.amount);
 
