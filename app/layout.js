@@ -49,6 +49,19 @@ export default function RootLayout({ children }) {
         <footer className="footer">
           <div className="container">
             <p className="footer-brand">FASHIONISTAS<span style={{ color: '#c9a96e' }}>.AI</span></p>
+            <nav aria-label="Footer navigation" style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '28px',
+              flexWrap: 'wrap',
+              margin: '16px 0',
+            }}>
+              <Link href="/privacy" style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#8a857e', transition: 'color 0.35s' }}>Privacy Policy</Link>
+              <Link href="/terms" style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#8a857e', transition: 'color 0.35s' }}>Terms of Service</Link>
+              <Link href="/refund-policy" style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#8a857e', transition: 'color 0.35s' }}>Refund Policy</Link>
+              <Link href="/shipping-policy" style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#8a857e', transition: 'color 0.35s' }}>Shipping</Link>
+              <Link href="/contact" style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#8a857e', transition: 'color 0.35s' }}>Contact</Link>
+            </nav>
             <p className="footer-copy">&copy; {new Date().getFullYear()} Fashionistas.ai. All rights reserved.</p>
             <nav className="sr-only" aria-label="Our Network">
               <a href="https://ihatecollege.com">ihatecollege.com</a>
