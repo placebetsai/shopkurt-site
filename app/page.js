@@ -42,13 +42,13 @@ export default async function HomePage() {
         <div className="container">
           <h2 className="section-title">Shop by Category</h2>
           <div className="categories-grid">
-            <Link href="/collections/beauty" className="category-tile">
+            <Link href="/collections/beauty-and-personal-care" className="category-tile">
               <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #1a1412 0%, #0d0b0a 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <span style={{ fontSize: '2.5rem' }}>&#10023;</span>
               </div>
               <span className="category-label">Beauty</span>
             </Link>
-            <Link href="/collections/shoes" className="category-tile">
+            <Link href="/collections/fashion" className="category-tile">
               <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #14120d 0%, #0a0908 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <span style={{ fontSize: '2.5rem' }}>&#10023;</span>
               </div>
@@ -60,7 +60,7 @@ export default async function HomePage() {
               </div>
               <span className="category-label">Accessories</span>
             </Link>
-            <Link href="/collections/jewelry" className="category-tile">
+            <Link href="/collections/trending-items" className="category-tile">
               <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #140d12 0%, #0a0809 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <span style={{ fontSize: '2.5rem' }}>&#10023;</span>
               </div>

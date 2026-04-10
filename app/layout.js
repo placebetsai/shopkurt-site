@@ -1,6 +1,7 @@
 import './globals.css';
 import Script from 'next/script';
 import Link from 'next/link';
+import Navbar from '../components/Navbar';
 
 export const metadata = {
   title: 'FASHIONISTAS.AI | Curated Women\'s Fashion, Beauty & Accessories',
@@ -41,36 +42,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <nav className="navbar">
-          <div className="container">
-            <Link href="/" className="nav-logo">
-              FASHIONISTAS<span className="nav-logo-accent">.AI</span>
-            </Link>
-            <ul className="nav-center">
-              <li>
-                <Link href="/products">Shop</Link>
-              </li>
-              <li>
-                <Link href="/collections">Collections</Link>
-              </li>
-              <li>
-                <Link href="/products">New Arrivals</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-            </ul>
-            <div className="nav-right">
-              <Link href="/cart" className="nav-cart" aria-label="Shopping bag">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <path d="M16 10a4 4 0 01-8 0" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-        </nav>
+        <Navbar />
 
         <main>{children}</main>
 
