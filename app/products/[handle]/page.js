@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import {
   getProduct,
   getProducts,
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }) {
     title: `${product.title} | Fashionistas.ai`,
     description:
       product.description?.slice(0, 160) ||
-      `Shop ${product.title} at Fashionistas.ai. Fast shipping, best prices.`,
+      `Shop ${product.title} at Fashionistas.ai. Curated fashion, fast shipping.`,
     openGraph: {
       title: product.title,
       description: product.description?.slice(0, 160) || product.title,
@@ -44,14 +45,27 @@ export default async function ProductPage({ params }) {
     return (
       <div className="container">
         <div className="empty-state">
-          <h2>Product Not Found</h2>
-          <p>This product may no longer be available.</p>
+          <p style={{
+            fontSize: '0.85rem',
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            color: '#8a8580',
+            marginBottom: '32px',
+          }}>
+            This product is no longer available
+          </p>
           <Link
             href="/products"
-            className="btn btn-outline"
-            style={{ marginTop: '24px' }}
+            style={{
+              fontSize: '0.7rem',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: '#c9a96e',
+              borderBottom: '1px solid #c9a96e',
+              paddingBottom: '4px',
+            }}
           >
-            Back to Products
+            Continue Shopping
           </Link>
         </div>
       </div>
@@ -62,7 +76,6 @@ export default async function ProductPage({ params }) {
   const mainImage = images[0];
   const variants = product.variants.edges.map((e) => e.node);
 
-  // Fetch related products
   let relatedProducts = [];
   try {
     const allProducts = await getProducts(20);
@@ -79,24 +92,26 @@ export default async function ProductPage({ params }) {
       {/* Breadcrumb */}
       <nav
         style={{
-          padding: '24px 0 0',
-          fontSize: '0.85rem',
-          color: '#888',
+          padding: '32px 0 0',
+          fontSize: '0.65rem',
+          color: '#4a4745',
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
+          gap: '12px',
           flexWrap: 'wrap',
+          letterSpacing: '0.15em',
+          textTransform: 'uppercase',
         }}
       >
-        <Link href="/" style={{ color: '#888', transition: 'color 0.2s' }}>
+        <Link href="/" style={{ color: '#4a4745', transition: 'color 0.3s' }}>
           Home
         </Link>
-        <span style={{ color: '#555' }}>/</span>
-        <Link href="/products" style={{ color: '#888', transition: 'color 0.2s' }}>
+        <span style={{ color: '#2a2725' }}>/</span>
+        <Link href="/products" style={{ color: '#4a4745', transition: 'color 0.3s' }}>
           Products
         </Link>
-        <span style={{ color: '#555' }}>/</span>
-        <span style={{ color: '#f5f5f5' }}>{product.title}</span>
+        <span style={{ color: '#2a2725' }}>/</span>
+        <span style={{ color: '#8a8580' }}>{product.title}</span>
       </nav>
 
       {/* Product Detail */}
@@ -109,12 +124,12 @@ export default async function ProductPage({ params }) {
                 src={mainImage.url}
                 alt={mainImage.altText || product.title}
                 width={800}
-                height={800}
+                height={1067}
               />
             ) : (
               <div
                 className="no-image"
-                style={{ aspectRatio: '1', fontSize: '1rem' }}
+                style={{ aspectRatio: '3/4', fontSize: '0.8rem', letterSpacing: '0.1em' }}
               >
                 No Image Available
               </div>
@@ -129,11 +144,9 @@ export default async function ProductPage({ params }) {
                 >
                   <img
                     src={img.url}
-                    alt={
-                      img.altText || `${product.title} - Image ${i + 1}`
-                    }
+                    alt={img.altText || `${product.title} - Image ${i + 1}`}
                     width={72}
-                    height={72}
+                    height={96}
                   />
                 </div>
               ))}
@@ -143,9 +156,22 @@ export default async function ProductPage({ params }) {
 
         {/* Info */}
         <div className="product-info">
+          {product.productType && (
+            <span style={{
+              fontSize: '0.65rem',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: '#4a4745',
+            }}>
+              {product.productType}
+            </span>
+          )}
+
           <h1>{product.title}</h1>
 
-          {/* Variant Selector with integrated price, add to cart, buy now */}
+          <hr className="luxury-divider" />
+
+          {/* Variant Selector with integrated price, add to bag, buy now */}
           <VariantSelector
             variants={variants}
             productTitle={product.title}
@@ -166,9 +192,6 @@ export default async function ProductPage({ params }) {
 
           {/* Meta */}
           <div className="product-meta">
-            {product.productType && (
-              <span>Category: {product.productType}</span>
-            )}
             {product.vendor && <span>Brand: {product.vendor}</span>}
             {product.tags.length > 0 && (
               <span>Tags: {product.tags.join(', ')}</span>
@@ -179,8 +202,8 @@ export default async function ProductPage({ params }) {
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section style={{ padding: '64px 0 80px' }}>
-          <h2 className="section-title">You Might Also Like</h2>
+        <section style={{ padding: '80px 0 120px' }}>
+          <h2 className="section-title">You May Also Like</h2>
           <div className="product-grid">
             {relatedProducts.map((p) => (
               <ProductCard key={p.id} product={p} />

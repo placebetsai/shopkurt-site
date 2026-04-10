@@ -7,11 +7,6 @@ export default function ProductCard({ product }) {
   const compareAt = product.compareAtPriceRange?.minVariantPrice;
   const hasDiscount =
     compareAt && parseFloat(compareAt.amount) > parseFloat(price.amount);
-  const discountPercent = hasDiscount
-    ? Math.round(
-        (1 - parseFloat(price.amount) / parseFloat(compareAt.amount)) * 100
-      )
-    : 0;
 
   return (
     <Link href={`/products/${product.handle}`} className="product-card">
@@ -21,17 +16,21 @@ export default function ProductCard({ product }) {
             src={image.url}
             alt={image.altText || product.title}
             width={600}
-            height={600}
+            height={800}
             loading="lazy"
           />
         ) : (
           <div className="no-image">No Image</div>
         )}
         {hasDiscount && (
-          <span className="product-card-badge">-{discountPercent}%</span>
+          <span className="product-card-badge">Sale</span>
         )}
+        <div className="product-card-quick">
+          <button>Quick Add</button>
+        </div>
       </div>
       <div className="product-card-body">
+        <p className="product-card-brand">Fashionistas</p>
         <h3 className="product-card-title">{product.title}</h3>
         <div className="product-card-price">
           <span className="price-current">
