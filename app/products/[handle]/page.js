@@ -14,19 +14,24 @@ export async function generateMetadata({ params }) {
   const product = await getProduct(handle);
   if (!product) return { title: 'Product Not Found | Fashionistas.ai' };
 
-  const price = product.priceRangeV2.minPrice;
+  const price = product.priceRangeV2.minVariantPrice;
   const image = product.images.edges[0]?.node;
+  const url = `https://fashionistas.ai/products/${handle}`;
 
   return {
     title: `${product.title} | Fashionistas.ai`,
     description:
       product.description?.slice(0, 160) ||
       `Shop ${product.title} at Fashionistas.ai. Curated fashion, fast shipping.`,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title: product.title,
       description: product.description?.slice(0, 160) || product.title,
       images: image ? [{ url: image.url, width: image.width, height: image.height }] : [],
       type: 'website',
+      url,
     },
   };
 }
@@ -75,6 +80,34 @@ export default async function ProductPage({ params }) {
   const images = product.images.edges.map((e) => e.node);
   const mainImage = images[0];
   const variants = product.variants.edges.map((e) => e.node);
+  const minPrice = product.priceRangeV2.minVariantPrice;
+
+  // JSON-LD Product structured data
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.title,
+    description: product.description || product.title,
+    url: `https://fashionistas.ai/products/${handle}`,
+    image: images.map((img) => img.url),
+    brand: {
+      '@type': 'Brand',
+      name: product.vendor || 'Fashionistas.ai',
+    },
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: minPrice.currencyCode,
+      lowPrice: minPrice.amount,
+      highPrice: product.priceRangeV2.maxVariantPrice.amount,
+      availability: variants.some((v) => v.availableForSale)
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+      seller: {
+        '@type': 'Organization',
+        name: 'Fashionistas.ai',
+      },
+    },
+  };
 
   let relatedProducts = [];
   try {
@@ -89,6 +122,10 @@ export default async function ProductPage({ params }) {
 
   return (
     <div className="container">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Breadcrumb */}
       <nav
         style={{

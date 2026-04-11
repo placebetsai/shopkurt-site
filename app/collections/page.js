@@ -5,11 +5,13 @@ export const metadata = {
   title: 'Collections | Fashionistas.ai',
   description:
     'Browse curated fashion collections at Fashionistas.ai. Women\'s fashion, beauty, accessories, and trending styles.',
+  alternates: {
+    canonical: 'https://fashionistas.ai/collections',
+  },
   openGraph: {
     title: 'Collections | Fashionistas.ai',
     description: 'Curated fashion collections for the modern woman.',
     url: 'https://fashionistas.ai/collections',
-    images: ['/og-image.svg'],
   },
 };
 

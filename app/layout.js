@@ -8,6 +8,9 @@ export const metadata = {
   description:
     'Discover curated women\'s fashion, beauty essentials, and luxury accessories. Trending styles, fast shipping, effortless elegance.',
   metadataBase: new URL('https://fashionistas.ai'),
+  alternates: {
+    canonical: 'https://fashionistas.ai',
+  },
   openGraph: {
     title: 'FASHIONISTAS.AI',
     description: 'Curated Women\'s Fashion, Beauty & Accessories',

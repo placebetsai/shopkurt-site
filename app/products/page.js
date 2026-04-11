@@ -6,6 +6,9 @@ export const metadata = {
   title: 'All Products | Fashionistas.ai',
   description:
     'Browse the full collection at Fashionistas.ai. Beauty, jewelry, shoes, accessories, and more. Curated for the modern woman.',
+  alternates: {
+    canonical: 'https://fashionistas.ai/products',
+  },
 };
 
 export default async function ProductsPage() {

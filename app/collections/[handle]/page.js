@@ -28,11 +28,13 @@ export async function generateMetadata({ params }) {
   return {
     title: `${title} | Fashionistas.ai`,
     description: `Shop the ${title} collection at Fashionistas.ai. Curated fashion, beauty, and accessories with fast US shipping.`,
+    alternates: {
+      canonical: `https://fashionistas.ai/collections/${handle}`,
+    },
     openGraph: {
       title: `${title} | Fashionistas.ai`,
       description: `Explore the ${title} collection. Curated fashion for the modern woman.`,
       url: `https://fashionistas.ai/collections/${handle}`,
-      images: ['/og-image.svg'],
     },
   };
 }

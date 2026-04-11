@@ -42,29 +42,29 @@ export default async function HomePage() {
         <div className="container">
           <h2 className="section-title">Shop by Category</h2>
           <div className="categories-grid">
-            <Link href="/collections/beauty-and-personal-care" className="category-tile">
+            <Link href="/collections/fashion" className="category-tile">
               <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #1a1412 0%, #0d0b0a 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: '2.5rem' }}>&#10023;</span>
+                <span style={{ fontSize: '2rem', color: '#c9a96e' }}>&#9733;</span>
+              </div>
+              <span className="category-label">Fashion</span>
+            </Link>
+            <Link href="/collections/beauty-and-personal-care" className="category-tile">
+              <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #14120d 0%, #0a0908 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontSize: '2rem', color: '#c9a96e' }}>&#10023;</span>
               </div>
               <span className="category-label">Beauty</span>
             </Link>
-            <Link href="/collections/fashion" className="category-tile">
-              <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #14120d 0%, #0a0908 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: '2.5rem' }}>&#10023;</span>
-              </div>
-              <span className="category-label">Shoes</span>
-            </Link>
             <Link href="/collections/accessories" className="category-tile">
               <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #12140d 0%, #090a08 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: '2.5rem' }}>&#10023;</span>
+                <span style={{ fontSize: '2rem', color: '#c9a96e' }}>&#9826;</span>
               </div>
               <span className="category-label">Accessories</span>
             </Link>
             <Link href="/collections/trending-items" className="category-tile">
               <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #140d12 0%, #0a0809 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: '2.5rem' }}>&#10023;</span>
+                <span style={{ fontSize: '2rem', color: '#c9a96e' }}>&#9830;</span>
               </div>
-              <span className="category-label">Jewelry</span>
+              <span className="category-label">Trending</span>
             </Link>
           </div>
         </div>

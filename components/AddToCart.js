@@ -15,7 +15,7 @@ export default function AddToCart({ variantId, title, price, image }) {
   function addToBag() {
     if (typeof window === 'undefined') return;
 
-    const cart = JSON.parse(localStorage.getItem('shopkurt_cart') || '[]');
+    const cart = JSON.parse(localStorage.getItem('fashionistas_cart') || '[]');
     const existingIndex = cart.findIndex((item) => item.variantId === variantId);
 
     if (existingIndex >= 0) {
@@ -30,13 +30,13 @@ export default function AddToCart({ variantId, title, price, image }) {
       });
     }
 
-    localStorage.setItem('shopkurt_cart', JSON.stringify(cart));
+    localStorage.setItem('fashionistas_cart', JSON.stringify(cart));
     window.dispatchEvent(new Event('cart-updated'));
     setShowToast(true);
   }
 
   function buyNow() {
-    window.location.href = `https://shopkurt.com/cart/${variantId}:1`;
+    window.location.href = `https://js0hy0-ux.myshopify.com/cart/${variantId}:1`;
   }
 
   return (
