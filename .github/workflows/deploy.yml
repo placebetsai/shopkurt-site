@@ -27,6 +27,14 @@ jobs:
           SHOPIFY_STORE: js0hy0-ux.myshopify.com
           SHOPIFY_ADMIN_TOKEN: ${{ secrets.SHOPIFY_ADMIN_TOKEN }}
 
+      - name: Create CF Pages project (if not exists)
+        uses: cloudflare/wrangler-action@v3
+        continue-on-error: true
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN_SHOPKURT }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: pages project create fashionistas --production-branch=main
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
