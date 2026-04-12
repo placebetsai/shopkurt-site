@@ -32,4 +32,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN_SHOPKURT }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy .vercel/output/static --project-name=shopkurt
+          command: pages deploy .vercel/output/static --project-name=fashionistas
