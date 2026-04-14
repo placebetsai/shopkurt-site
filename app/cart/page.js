@@ -64,7 +64,9 @@ export default function CartPage() {
     const cartString = cart
       .map((item) => `${item.variantId}:${item.quantity}`)
       .join(',');
-    window.location.href = `https://js0hy0-ux.myshopify.com/cart/${cartString}`;
+    // Route through fashionistas.ai — Cloudflare Worker proxies /cart/* to
+    // shop.fashionistas.ai (Shopify primary) so the URL bar stays fashionistas.ai.
+    window.location.href = `https://fashionistas.ai/cart/${cartString}`;
   }
 
   const subtotal = cart.reduce(
