@@ -12,7 +12,7 @@ export default function SpanishStylePage() {
       eyebrow="SpanishTVShows.com Edit"
       title="Spanish Style, Resort Looks & Show-Inspired Fashion"
       description="A cleaner style section for readers who want Spanish-series energy: sharper black pieces, vacation sandals, layered jewelry, and more dramatic editorial accessories."
-      query="dress sandals wedges jewelry black jacket gold necklace earrings vacation style"
+      query="product_type:Clothing OR product_type:Dresses OR product_type:Sandals OR product_type:Jewelry OR product_type:Sneakers OR tag:clothing OR tag:fashion"
       collectionHref="/collections/fashion"
       collectionLabel="Browse Style Edit"
     />

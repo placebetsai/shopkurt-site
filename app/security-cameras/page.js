@@ -12,7 +12,7 @@ export default function SecurityCamerasPage() {
       eyebrow="Hiddencameras.tv Edit"
       title="Security Cameras, Nanny Cams & Hidden Gear"
       description="A searchable camera and surveillance section tied to the hiddencameras.tv audience. Use it for home monitoring, doorbell coverage, nanny cams, and compact hidden-camera setups without digging through a generic catalog."
-      query="security camera hidden camera nanny cam spy camera doorbell camera dash cam"
+      query="tag:security-camera OR product_type:'Security Camera'"
       collectionHref="/collections/security-cameras"
       collectionLabel="Browse Camera Collection"
     />

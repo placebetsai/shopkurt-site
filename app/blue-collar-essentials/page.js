@@ -12,7 +12,7 @@ export default function BlueCollarEssentialsPage() {
       eyebrow="IHateCollege.com Edit"
       title="Blue-Collar Essentials & First-Job Basics"
       description="Work shoes, practical bags, durable basics, and budget-friendly style upgrades for interviews, apprenticeships, trade programs, and first-job routines."
-      query="work shoes loafers boots tote bag crossbody belt wallet practical accessories"
+      query="product_type:Footwear OR product_type:Shoes OR product_type:Sneakers OR product_type:Sandals OR product_type:Loafers OR product_type:Clothing OR tag:footwear"
       collectionHref="/products"
       collectionLabel="Browse Work-Ready Picks"
     />

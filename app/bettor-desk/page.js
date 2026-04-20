@@ -12,7 +12,7 @@ export default function BettorDeskPage() {
       eyebrow="PlaceBets.ai Edit"
       title="Bettor Desk Gear, Setup Accessories & Study Tools"
       description="A searchable desk-setup section for bettors who spend real time studying markets. Built around organizers, lamps, phone stands, notebooks, and low-cost desk upgrades that fit a serious betting workspace."
-      query="desk lamp phone stand notebook organizer mug desk accessories gaming setup"
+      query="product_type:'Tech Accessories' OR product_type:Watches OR product_type:'Mobile & Laptop Accessories' OR product_type:'Home & Garden' OR tag:gadgets"
       collectionHref="/products"
       collectionLabel="Browse Desk Gear"
     />
