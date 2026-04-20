@@ -30,7 +30,7 @@ export default function ProductCard({ product }) {
         </div>
       </div>
       <div className="product-card-body">
-        <p className="product-card-brand">Fashionistas</p>
+        <p className="product-card-brand">Fashionistas.ai</p>
         <h3 className="product-card-title">{product.title}</h3>
         <div className="product-card-price">
           <span className="price-current">

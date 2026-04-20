@@ -384,6 +384,16 @@ img {
   }
 }
 
+.fashionistas-editorial-grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 980px) {
+  .fashionistas-editorial-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
 .category-tile {
   position: relative;
   aspect-ratio: 3/4;

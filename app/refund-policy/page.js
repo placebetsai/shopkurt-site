@@ -51,7 +51,7 @@ export default function RefundPolicyPage() {
         <Section title="How to Initiate a Return">
           <p>To start a return, please follow these steps:</p>
           <ol style={{ ...listStyle, listStyle: 'decimal', paddingLeft: 20 }}>
-            <li>Email us at <a href="mailto:info@shopkurt.com" style={{ color: 'var(--accent)' }}>info@shopkurt.com</a> with your order number and the reason for your return.</li>
+            <li>Email us at <a href="mailto:info@fashionistas.ai" style={{ color: 'var(--accent)' }}>info@fashionistas.ai</a> with your order number and the reason for your return.</li>
             <li>Our team will respond within 24 hours with return instructions and a return authorization.</li>
             <li>Pack the item(s) securely in the original packaging.</li>
             <li>Ship the item(s) to the address provided in the return authorization.</li>
@@ -75,13 +75,13 @@ export default function RefundPolicyPage() {
         </Section>
 
         <Section title="Damaged or Defective Items">
-          <p>If you receive a damaged, defective, or incorrect item, please contact us within 48 hours of delivery at <a href="mailto:info@shopkurt.com" style={{ color: 'var(--accent)' }}>info@shopkurt.com</a>. Include your order number and photos of the issue. We will arrange a free return and send a replacement or issue a full refund, including shipping costs.</p>
+          <p>If you receive a damaged, defective, or incorrect item, please contact us within 48 hours of delivery at <a href="mailto:info@fashionistas.ai" style={{ color: 'var(--accent)' }}>info@fashionistas.ai</a>. Include your order number and photos of the issue. We will arrange a free return and send a replacement or issue a full refund, including shipping costs.</p>
         </Section>
 
         <Section title="Exchanges">
           <p>We offer exchanges for items of equal value, subject to availability. To request an exchange:</p>
           <ul style={listStyle}>
-            <li>Email us at <a href="mailto:info@shopkurt.com" style={{ color: 'var(--accent)' }}>info@shopkurt.com</a> with your order number and the item you would like to exchange for.</li>
+            <li>Email us at <a href="mailto:info@fashionistas.ai" style={{ color: 'var(--accent)' }}>info@fashionistas.ai</a> with your order number and the item you would like to exchange for.</li>
             <li>If the desired item is available, we will provide exchange instructions.</li>
             <li>If the exchange item is a different price, we will charge or refund the difference accordingly.</li>
           </ul>
@@ -93,14 +93,14 @@ export default function RefundPolicyPage() {
           <ul style={listStyle}>
             <li>Check your bank or credit card account again, as processing times vary.</li>
             <li>Contact your bank or card issuer, as there may be additional processing time.</li>
-            <li>If you have done both and still have not received your refund, contact us at <a href="mailto:info@shopkurt.com" style={{ color: 'var(--accent)' }}>info@shopkurt.com</a>.</li>
+            <li>If you have done both and still have not received your refund, contact us at <a href="mailto:info@fashionistas.ai" style={{ color: 'var(--accent)' }}>info@fashionistas.ai</a>.</li>
           </ul>
         </Section>
 
         <Section title="Contact Us">
           <p>For any questions about returns or refunds, please reach out:</p>
           <div style={{ marginTop: 16, color: 'var(--text-secondary)', lineHeight: 2 }}>
-            <p>Email: <a href="mailto:info@shopkurt.com" style={{ color: 'var(--accent)' }}>info@shopkurt.com</a></p>
+            <p>Email: <a href="mailto:info@fashionistas.ai" style={{ color: 'var(--accent)' }}>info@fashionistas.ai</a></p>
             <p>Fashionistas.ai</p>
             <p>101 West Camino Real #605</p>
             <p>Boca Raton, FL 33432</p>

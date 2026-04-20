@@ -27,7 +27,7 @@ export default function ContactPage() {
         {/* Contact Info */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
           <InfoBlock label="Email">
-            <a href="mailto:info@shopkurt.com" style={{ color: 'var(--accent)', fontSize: '1rem' }}>info@shopkurt.com</a>
+            <a href="mailto:info@fashionistas.ai" style={{ color: 'var(--accent)', fontSize: '1rem' }}>info@fashionistas.ai</a>
           </InfoBlock>
 
           <InfoBlock label="Business Address">
@@ -62,7 +62,7 @@ export default function ContactPage() {
           }}>Send Us a Message</h2>
 
           <form
-            action="mailto:info@shopkurt.com"
+            action="mailto:info@fashionistas.ai"
             method="POST"
             encType="text/plain"
             style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 520, margin: '0 auto' }}

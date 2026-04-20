@@ -12,61 +12,93 @@ export default function Image() {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignItems: 'stretch',
+          justifyContent: 'space-between',
           width: '100%',
           height: '100%',
-          background: 'linear-gradient(135deg, #050505 0%, #1a1412 50%, #050505 100%)',
+          background: 'linear-gradient(135deg, #050505 0%, #120f0d 45%, #050505 100%)',
           fontFamily: 'sans-serif',
+          padding: '64px 72px',
         }}
       >
         <div
           style={{
             display: 'flex',
-            alignItems: 'baseline',
-            marginBottom: '24px',
+            flexDirection: 'column',
           }}
         >
+          <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '18px' }}>
+            <span
+              style={{
+                fontSize: '70px',
+                fontWeight: 200,
+                color: '#f0ede8',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Fashionistas
+            </span>
+            <span
+              style={{
+                fontSize: '70px',
+                fontWeight: 200,
+                color: '#c9a96e',
+              }}
+            >
+              .ai
+            </span>
+          </div>
           <span
             style={{
-              fontSize: '72px',
-              fontWeight: 200,
-              color: '#f0ede8',
-              letterSpacing: '0.15em',
+              fontSize: '24px',
+              fontWeight: 400,
+              color: '#c9a96e',
+              letterSpacing: '0.26em',
               textTransform: 'uppercase',
             }}
           >
-            Fashionistas
-          </span>
-          <span
-            style={{
-              fontSize: '72px',
-              fontWeight: 200,
-              color: '#c9a96e',
-            }}
-          >
-            .ai
+            Shoes, Accessories & Affordable Style
           </span>
         </div>
+
         <div
           style={{
-            width: '80px',
-            height: '1px',
-            background: '#c9a96e',
-            marginBottom: '24px',
-          }}
-        />
-        <span
-          style={{
-            fontSize: '24px',
-            fontWeight: 300,
-            color: '#8a8580',
-            letterSpacing: '0.25em',
-            textTransform: 'uppercase',
+            display: 'flex',
+            gap: '18px',
+            alignItems: 'stretch',
+            width: '100%',
           }}
         >
-          Curated Women's Fashion, Beauty & Accessories
-        </span>
+          {[
+            'Interview Shoes',
+            'Vacation Sandals',
+            'Trending Accessories',
+          ].map((label) => (
+            <div
+              key={label}
+              style={{
+                display: 'flex',
+                flex: 1,
+                border: '1px solid rgba(201,169,110,0.25)',
+                background: 'rgba(255,255,255,0.02)',
+                padding: '20px 22px',
+              }}
+            >
+              <span
+                style={{
+                  fontSize: '22px',
+                  fontWeight: 400,
+                  color: '#f0ede8',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     ),
     { ...size }

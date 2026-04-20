@@ -102,7 +102,7 @@ export default function PrivacyPage() {
         <Section title="Contact Us">
           <p>If you have questions or concerns about this Privacy Policy, please contact us:</p>
           <div style={{ marginTop: 16, color: 'var(--text-secondary)', lineHeight: 2 }}>
-            <p>Email: <a href="mailto:info@shopkurt.com" style={{ color: 'var(--accent)' }}>info@shopkurt.com</a></p>
+            <p>Email: <a href="mailto:info@fashionistas.ai" style={{ color: 'var(--accent)' }}>info@fashionistas.ai</a></p>
             <p>Fashionistas.ai</p>
             <p>101 West Camino Real #605</p>
             <p>Boca Raton, FL 33432</p>

@@ -7,5 +7,6 @@ export default function robots() {
       },
     ],
     sitemap: 'https://fashionistas.ai/sitemap.xml',
+    host: 'https://fashionistas.ai',
   };
 }

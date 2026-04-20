@@ -4,19 +4,24 @@ import Link from 'next/link';
 import Navbar from '../components/Navbar';
 
 export const metadata = {
-  title: 'FASHIONISTAS.AI | Curated Women\'s Fashion, Beauty & Accessories',
+  title: 'FASHIONISTAS.AI | Shoes, Accessories & Affordable Style',
   description:
-    'Discover curated women\'s fashion, beauty essentials, and luxury accessories. Trending styles, fast shipping, effortless elegance.',
+    'Shop wedges, sandals, heels, flats, jewelry, bags, and affordable style upgrades at Fashionistas.ai. Built for trending looks, interviews, vacations, and everyday wear.',
   metadataBase: new URL('https://fashionistas.ai'),
   alternates: {
     canonical: 'https://fashionistas.ai',
   },
   openGraph: {
-    title: 'FASHIONISTAS.AI',
-    description: 'Curated Women\'s Fashion, Beauty & Accessories',
+    title: 'FASHIONISTAS.AI | Shoes, Accessories & Affordable Style',
+    description: 'Wedges, sandals, accessories, and low-cost outfit upgrades for interviews, vacations, and everyday style.',
     url: 'https://fashionistas.ai',
     siteName: 'Fashionistas.ai',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FASHIONISTAS.AI | Shoes, Accessories & Affordable Style',
+    description: 'Wedges, sandals, accessories, and low-cost outfit upgrades for interviews, vacations, and everyday style.',
   },
   icons: {
     icon: '/favicon.svg',
@@ -24,6 +29,26 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Fashionistas.ai',
+    url: 'https://fashionistas.ai',
+    logo: 'https://fashionistas.ai/favicon.svg',
+    sameAs: [
+      'https://fashionistas.ai',
+    ],
+  };
+
+  const siteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Fashionistas.ai',
+    url: 'https://fashionistas.ai',
+    description:
+      'Shoes, accessories, and affordable style upgrades for interviews, vacations, and everyday wear.',
+  };
+
   return (
     <html lang="en">
       <head>
@@ -42,6 +67,14 @@ export default function RootLayout({ children }) {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7215975042937417"
           crossOrigin="anonymous"
           strategy="afterInteractive"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
         />
       </head>
       <body>

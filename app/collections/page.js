@@ -4,13 +4,13 @@ import { getCollections } from '../../lib/shopify';
 export const metadata = {
   title: 'Collections | Fashionistas.ai',
   description:
-    'Browse curated fashion collections at Fashionistas.ai. Women\'s fashion, beauty, accessories, and trending styles.',
+    'Browse Fashionistas.ai collections for wedges, sandals, boots, jewelry, bags, and trend-led accessories. Shop curated categories built for search, gifting, and seasonal style.',
   alternates: {
     canonical: 'https://fashionistas.ai/collections',
   },
   openGraph: {
     title: 'Collections | Fashionistas.ai',
-    description: 'Curated fashion collections for the modern woman.',
+    description: 'Shop collections for shoes, accessories, and affordable trend-led style.',
     url: 'https://fashionistas.ai/collections',
   },
 };
@@ -53,6 +53,52 @@ export default async function CollectionsPage() {
             margin: '24px auto 0',
           }}
         />
+        <p
+          style={{
+            maxWidth: 720,
+            margin: '24px auto 0',
+            color: '#9a948d',
+            lineHeight: 1.8,
+            fontSize: '0.95rem',
+          }}
+        >
+          These category pages are where Fashionistas.ai gets sharper: shoes
+          that solve a specific occasion, accessories that lift a basic outfit,
+          and seasonal trends grouped in a way that is easier to shop than a
+          generic catalog feed.
+        </p>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '12px',
+            flexWrap: 'wrap',
+            marginTop: '28px',
+          }}
+        >
+          {[
+            { href: '/interview-shoes', label: 'Interview Shoes' },
+            { href: '/vacation-sandals', label: 'Vacation Sandals' },
+            { href: '/trending-accessories', label: 'Trending Accessories' },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              style={{
+                display: 'inline-block',
+                padding: '12px 18px',
+                border: '1px solid #2a2622',
+                color: '#fff',
+                fontSize: '0.7rem',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
       </div>
 
       {collections.length > 0 ? (

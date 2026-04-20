@@ -109,6 +109,31 @@ export default async function ProductPage({ params }) {
     },
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://fashionistas.ai',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Products',
+        item: 'https://fashionistas.ai/products',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: product.title,
+        item: `https://fashionistas.ai/products/${handle}`,
+      },
+    ],
+  };
+
   let relatedProducts = [];
   try {
     const allProducts = await getProducts(20);
@@ -125,6 +150,10 @@ export default async function ProductPage({ params }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Breadcrumb */}
       <nav
@@ -215,6 +244,45 @@ export default async function ProductPage({ params }) {
             productImage={mainImage?.url || ''}
           />
 
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+              gap: '10px',
+              marginTop: '8px',
+            }}
+          >
+            {[
+              ['Fast Checkout', 'Buy now routes directly into checkout.'],
+              ['Style-First Picks', 'Focused on shoes, accessories, and wearable upgrades.'],
+              ['Simple Returns Info', 'Policies are linked clearly before purchase.'],
+            ].map(([title, detail]) => (
+              <div
+                key={title}
+                style={{
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  padding: '14px 14px 12px',
+                  background: 'rgba(255,255,255,0.02)',
+                }}
+              >
+                <div
+                  style={{
+                    color: '#c9a96e',
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    marginBottom: '6px',
+                  }}
+                >
+                  {title}
+                </div>
+                <div style={{ color: '#8a8580', fontSize: '0.82rem', lineHeight: 1.6 }}>
+                  {detail}
+                </div>
+              </div>
+            ))}
+          </div>
+
           {/* Description */}
           {product.descriptionHtml ? (
             <div
@@ -233,6 +301,23 @@ export default async function ProductPage({ params }) {
             {product.tags.length > 0 && (
               <span>Tags: {product.tags.join(', ')}</span>
             )}
+          </div>
+
+          <div
+            style={{
+              marginTop: '18px',
+              display: 'flex',
+              gap: '18px',
+              flexWrap: 'wrap',
+              fontSize: '0.68rem',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: '#8a8580',
+            }}
+          >
+            <Link href="/shipping-policy" style={{ color: '#8a8580' }}>Shipping Policy</Link>
+            <Link href="/refund-policy" style={{ color: '#8a8580' }}>Returns & Refunds</Link>
+            <Link href="/contact" style={{ color: '#8a8580' }}>Contact Support</Link>
           </div>
         </div>
       </div>

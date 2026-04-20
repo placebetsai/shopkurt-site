@@ -19,7 +19,7 @@ export default function IsraelJoffePage() {
     {
       name: 'Fashionistas.ai',
       url: 'https://fashionistas.ai',
-      description: 'Curated fashion, beauty, and accessories',
+      description: 'Affordable shoes, accessories, and trend-led style',
     },
     {
       name: 'ihatecollege.com',
@@ -35,11 +35,6 @@ export default function IsraelJoffePage() {
       name: 'spanishtvshows.com',
       url: 'https://spanishtvshows.com',
       description: 'Spanish language television guides and reviews',
-    },
-    {
-      name: 'shopkurt.com',
-      url: 'https://shopkurt.com',
-      description: 'Trending products marketplace',
     },
     {
       name: 'hiddencameras.tv',
@@ -122,9 +117,10 @@ export default function IsraelJoffePage() {
           }}
         >
           Israel Joffe is an entrepreneur and builder based in Boca Raton,
-          Florida. He is the founder of Fashionistas.ai, a curated fashion
-          destination spanning Shopify, eBay, and TikTok Shop, and operates a
-          portfolio of web properties across media, commerce, and technology.
+          Florida. He is the founder of Fashionistas.ai, a fashion commerce
+          brand spanning Shopify, eBay, Google Shopping, and TikTok Shop, and
+          operates a portfolio of web properties across media, commerce, and
+          technology.
         </p>
         <p
           style={{
@@ -184,10 +180,10 @@ export default function IsraelJoffePage() {
             fontWeight: '300',
           }}
         >
-          His current focus areas include dropshipping with US-based warehouses
-          for fast shipping, content-driven web properties monetized through
-          advertising and affiliate partnerships, and AI-powered tools for
-          prediction markets and fashion.
+          His current focus areas include affordable fashion commerce with
+          multi-channel distribution, content-driven web properties monetized
+          through advertising and affiliate partnerships, and AI-powered tools
+          for prediction markets and trend discovery.
         </p>
       </div>
 

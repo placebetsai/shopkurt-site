@@ -3,7 +3,6 @@ import Link from 'next/link';
 import ProductCard from '../../../components/ProductCard';
 import {
   getProductsByCollectionSorted,
-  formatPrice,
 } from '../../../lib/shopify';
 
 function parseSortParam(sort) {
@@ -27,16 +26,27 @@ export async function generateMetadata({ params }) {
     .replace(/\b\w/g, (c) => c.toUpperCase());
   return {
     title: `${title} | Fashionistas.ai`,
-    description: `Shop the ${title} collection at Fashionistas.ai. Curated fashion, beauty, and accessories with fast US shipping.`,
+    description: `Shop the ${title} collection at Fashionistas.ai. Browse affordable shoes, standout accessories, and trend-led pieces with fast US shipping.`,
     alternates: {
       canonical: `https://fashionistas.ai/collections/${handle}`,
     },
     openGraph: {
       title: `${title} | Fashionistas.ai`,
-      description: `Explore the ${title} collection. Curated fashion for the modern woman.`,
+      description: `Explore the ${title} collection with affordable pricing, fast shipping, and stronger occasion-based style.`,
       url: `https://fashionistas.ai/collections/${handle}`,
     },
   };
+}
+
+function buildCollectionStory(handle, title) {
+  const normalized = handle.toLowerCase();
+  if (normalized.includes('shoe') || normalized.includes('heel') || normalized.includes('sandal') || normalized.includes('boot')) {
+    return `This collection is built around occasion-ready footwear that photographs well, travels well, and gives shoppers a clear reason to buy now instead of later.`;
+  }
+  if (normalized.includes('bag') || normalized.includes('accessor') || normalized.includes('jewel')) {
+    return `These are the add-on pieces that lift average order value: giftable accessories, easy styling upgrades, and trend-right items that work across TikTok, Shopify, and marketplace traffic.`;
+  }
+  return `Fashionistas.ai uses collection pages to turn broad browsing into intent-based shopping, with cleaner grouping, stronger pricing context, and products that fit a real style moment.`;
 }
 
 export default async function CollectionPage({ params, searchParams }) {
@@ -108,6 +118,7 @@ export default async function CollectionPage({ params, searchParams }) {
     { label: 'Price \u2193', value: 'price-desc' },
     { label: 'Best Selling', value: 'best-selling' },
   ];
+  const collectionStory = buildCollectionStory(handle, collection.title);
 
   return (
     <div style={{ background: '#050505', minHeight: '100vh' }}>
@@ -179,6 +190,17 @@ export default async function CollectionPage({ params, searchParams }) {
         )}
         <p
           style={{
+            color: '#9a948d',
+            fontSize: '0.92rem',
+            maxWidth: '720px',
+            margin: '18px auto 0',
+            lineHeight: '1.8',
+          }}
+        >
+          {collectionStory}
+        </p>
+        <p
+          style={{
             fontSize: '0.8rem',
             color: '#c9a96e',
             letterSpacing: '0.2em',
@@ -233,6 +255,40 @@ export default async function CollectionPage({ params, searchParams }) {
           ))}
         </div>
       )}
+
+      <div
+        style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 24px 28px',
+          display: 'flex',
+          gap: '12px',
+          flexWrap: 'wrap',
+        }}
+      >
+        {[
+          { href: '/interview-shoes', label: 'Shop Interview Shoes' },
+          { href: '/vacation-sandals', label: 'Shop Vacation Sandals' },
+          { href: '/trending-accessories', label: 'Shop Trending Accessories' },
+        ].map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            style={{
+              display: 'inline-block',
+              padding: '12px 16px',
+              border: '1px solid #2a2622',
+              color: '#c9a96e',
+              fontSize: '0.7rem',
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+            }}
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
 
       {/* Product grid */}
       {collection.products.length > 0 ? (

@@ -3,11 +3,11 @@ import Link from 'next/link';
 export const metadata = {
   title: 'Our Story | Fashionistas.ai',
   description:
-    'Fashionistas.ai is a curated fashion destination founded by Israel Joffe in Boca Raton, FL. Trending fashion, beauty, and accessories with fast US shipping.',
+    'Fashionistas.ai is an affordable style destination focused on trending shoes, standout accessories, and easy-to-wear fashion with fast US shipping.',
   openGraph: {
     title: 'Our Story | Fashionistas.ai',
     description:
-      'Curated fashion. Founded by Israel Joffe. Fast US shipping.',
+      'Affordable shoes, accessories, and trend-right style. Founded by Israel Joffe.',
     url: 'https://fashionistas.ai/about',
     images: ['/og-image.svg'],
   },
@@ -16,16 +16,16 @@ export const metadata = {
 export default function AboutPage() {
   const values = [
     {
-      title: 'Quality',
-      text: 'Every piece is hand-selected for craftsmanship and style. We partner with trusted suppliers and ship from US-based warehouses for reliable, fast delivery.',
+      title: 'Selection',
+      text: 'We focus on items people actually shop for: wedges, sandals, boots, statement accessories, and everyday pieces that photograph well and land at a price people can justify.',
     },
     {
-      title: 'Style',
-      text: 'We track the pulse of fashion so you don\'t have to. From emerging trends to timeless essentials, our collections are curated with intention.',
+      title: 'Speed',
+      text: 'We keep the assortment lean, track trend signals closely, and move fast on the categories that convert instead of burying shoppers under thousands of random listings.',
     },
     {
-      title: 'Accessibility',
-      text: 'Great fashion shouldn\'t require a great fortune. We keep operations lean and pass the savings to you, with Best Offer on every listing.',
+      title: 'Value',
+      text: 'Fashionistas.ai is built around affordable style. We aim for TikTok-friendly entry prices, stronger value on multi-channel bestsellers, and straightforward shipping expectations.',
     },
   ];
 
@@ -68,9 +68,10 @@ export default function AboutPage() {
             fontWeight: '300',
           }}
         >
-          Fashionistas.ai is a curated fashion destination for the modern woman.
-          We believe that style should be effortless, accessible, and never
-          compromised by price.
+          Fashionistas.ai is built for affordable style that still feels current.
+          The store is strongest when it helps shoppers find trend-right shoes,
+          standout accessories, and easy wins for everyday outfits without
+          luxury-store pricing.
         </p>
       </div>
 
@@ -102,11 +103,12 @@ export default function AboutPage() {
             fontWeight: '300',
           }}
         >
-          Making trending fashion accessible with fast US shipping. We work
-          directly with US-based warehouses to deliver quality fashion, beauty
-          products, and accessories to your door within days, not weeks. No
-          mystery tracking, no inflated markups, just great style at honest
-          prices.
+          We are building a sharper kind of fashion store: one that leans into
+          categories with repeat demand and strong visual appeal, especially
+          wedges, sandals, boots, loafers, jewelry, bags, and seasonal
+          accessories. The goal is simple: useful style, competitive pricing,
+          and fast enough shipping that customers come back instead of treating
+          the site like a one-off impulse buy.
         </p>
       </div>
 
@@ -152,9 +154,10 @@ export default function AboutPage() {
             Israel Joffe
           </Link>
           , an entrepreneur based in Boca Raton, Florida. With a background in
-          competitive athletics and a passion for lean, technology-driven
-          businesses, Israel built Fashionistas.ai to bridge the gap between
-          high-end curation and everyday affordability.
+          competitive athletics and a bias toward lean, technology-driven
+          businesses, Israel built Fashionistas.ai to turn trend data,
+          merchandising discipline, and affordable pricing into a better online
+          fashion experience.
         </p>
       </div>
 

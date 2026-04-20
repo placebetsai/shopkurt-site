@@ -73,7 +73,7 @@ export default function ShippingPolicyPage() {
 
         <Section title="Order Tracking">
           <p>Once your order ships, you will receive a shipping confirmation email with a tracking number and a link to track your package. You can use this tracking number on the carrier's website to monitor your delivery status in real time.</p>
-          <p style={{ marginTop: 12 }}>If you do not receive a shipping confirmation within 5 business days of placing your order, please contact us at <a href="mailto:info@shopkurt.com" style={{ color: 'var(--accent)' }}>info@shopkurt.com</a>.</p>
+          <p style={{ marginTop: 12 }}>If you do not receive a shipping confirmation within 5 business days of placing your order, please contact us at <a href="mailto:info@fashionistas.ai" style={{ color: 'var(--accent)' }}>info@fashionistas.ai</a>.</p>
         </Section>
 
         <Section title="Lost or Damaged Packages">
@@ -85,7 +85,7 @@ export default function ShippingPolicyPage() {
         </Section>
 
         <Section title="Incorrect Shipping Address">
-          <p>Please ensure your shipping address is correct at the time of checkout. We are not responsible for orders shipped to an incorrect address provided by the customer. If you realize your address is incorrect after placing your order, contact us immediately at <a href="mailto:info@shopkurt.com" style={{ color: 'var(--accent)' }}>info@shopkurt.com</a> and we will do our best to update it before the order ships.</p>
+          <p>Please ensure your shipping address is correct at the time of checkout. We are not responsible for orders shipped to an incorrect address provided by the customer. If you realize your address is incorrect after placing your order, contact us immediately at <a href="mailto:info@fashionistas.ai" style={{ color: 'var(--accent)' }}>info@fashionistas.ai</a> and we will do our best to update it before the order ships.</p>
         </Section>
 
         <Section title="P.O. Boxes and APO/FPO Addresses">
@@ -95,7 +95,7 @@ export default function ShippingPolicyPage() {
         <Section title="Contact Us">
           <p>For shipping questions or concerns, please reach out:</p>
           <div style={{ marginTop: 16, color: 'var(--text-secondary)', lineHeight: 2 }}>
-            <p>Email: <a href="mailto:info@shopkurt.com" style={{ color: 'var(--accent)' }}>info@shopkurt.com</a></p>
+            <p>Email: <a href="mailto:info@fashionistas.ai" style={{ color: 'var(--accent)' }}>info@fashionistas.ai</a></p>
             <p>Fashionistas.ai</p>
             <p>101 West Camino Real #605</p>
             <p>Boca Raton, FL 33432</p>
