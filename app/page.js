@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import ProductCard from '../components/ProductCard';
-import { getProducts, formatPrice } from '../lib/shopify';
+import { getProducts, getCollections, formatPrice } from '../lib/shopify';
 import { buildCollectionPromos, buildMerchSections, getMerchandiseableProducts } from '../lib/merchandising';
 
 const TRUST_POINTS = [
@@ -53,6 +53,7 @@ function getProductImage(product) {
 
 export default async function HomePage() {
   let products = [];
+  let liveCollections = [];
 
   try {
     products = await getProducts(24);
@@ -60,11 +61,24 @@ export default async function HomePage() {
     console.error('Failed to fetch products:', err.message);
   }
 
+  try {
+    liveCollections = await getCollections();
+  } catch (err) {
+    console.error('Failed to fetch collections:', err.message);
+  }
+
+  const liveHandles = new Set(
+    (liveCollections || [])
+      .filter((c) => (c.productCount || 0) > 0)
+      .map((c) => c.handle)
+  );
+
   const merchProducts = getMerchandiseableProducts(products);
   const displayProducts = merchProducts.length >= 8 ? merchProducts : products;
   const heroProducts = displayProducts.slice(0, 3);
   const sections = buildMerchSections(displayProducts, 4);
-  const visibleSections = buildCollectionPromos(displayProducts);
+  const allPromos = buildCollectionPromos(displayProducts);
+  const visibleSections = allPromos.filter((promo) => liveHandles.has(promo.slug));
   const featuredProducts = displayProducts.slice(0, 8);
 
   return (
