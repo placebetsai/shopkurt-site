@@ -99,6 +99,29 @@ const RELATED_LINKS = [
   { href: '/trending-accessories', label: 'Trending Accessories' },
 ];
 
+const SUBCATEGORY_MIN = 2;
+
+function slugifyType(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function groupByProductType(products) {
+  const groups = new Map();
+  for (const product of products) {
+    const type = (product.productType || '').trim();
+    if (!type) continue;
+    if (!groups.has(type)) groups.set(type, []);
+    groups.get(type).push(product);
+  }
+  return Array.from(groups.entries())
+    .filter(([, items]) => items.length >= SUBCATEGORY_MIN)
+    .sort((a, b) => b[1].length - a[1].length)
+    .map(([type, items]) => ({ type, slug: slugifyType(type), items }));
+}
+
 export default async function CollectionPage({ params, searchParams }) {
   const { handle } = await params;
   let collection = null;
@@ -181,23 +204,71 @@ export default async function CollectionPage({ params, searchParams }) {
           </div>
         </section>
 
-        {collection.products.length > 0 ? (
-          <section className="fashionistas-collection-grid-wrap">
-            <div className="product-grid">
-              {collection.products.map((product) => (
-                <ProductCard key={product.id} product={product} />
+        {(() => {
+          const subGroups = groupByProductType(collection.products);
+          const showSubs = subGroups.length > 1;
+
+          if (collection.products.length === 0) {
+            return (
+              <div className="empty-state fashionistas-empty-panel">
+                <h2>Restocking</h2>
+                <p>This collection is currently empty — check back soon or shop all products.</p>
+                <Link href="/products" className="btn btn-outline">
+                  Shop All Products
+                </Link>
+              </div>
+            );
+          }
+
+          if (!showSubs) {
+            return (
+              <section className="fashionistas-collection-grid-wrap">
+                <div className="product-grid">
+                  {collection.products.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              </section>
+            );
+          }
+
+          return (
+            <>
+              <section className="fashionistas-subcategory-nav" aria-label="Subcategories">
+                <div className="fashionistas-chip-row">
+                  {subGroups.map((group) => (
+                    <a
+                      key={group.slug}
+                      href={`#${group.slug}`}
+                      className="fashionistas-chip-link fashionistas-chip-sub"
+                    >
+                      {group.type} <span>{group.items.length}</span>
+                    </a>
+                  ))}
+                </div>
+              </section>
+
+              {subGroups.map((group) => (
+                <section
+                  key={group.slug}
+                  id={group.slug}
+                  className="fashionistas-subcategory-section"
+                >
+                  <div className="fashionistas-section-head fashionistas-subcategory-head">
+                    <p className="fashionistas-kicker">{collection.title}</p>
+                    <h2 className="fashionistas-display-title">{group.type}</h2>
+                    <span className="fashionistas-subcategory-count">{group.items.length} {group.items.length === 1 ? 'style' : 'styles'}</span>
+                  </div>
+                  <div className="product-grid">
+                    {group.items.map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                </section>
               ))}
-            </div>
-          </section>
-        ) : (
-          <div className="empty-state fashionistas-empty-panel">
-            <h2>Restocking</h2>
-            <p>This collection is currently empty — check back soon or shop all products.</p>
-            <Link href="/products" className="btn btn-outline">
-              Shop All Products
-            </Link>
-          </div>
-        )}
+            </>
+          );
+        })()}
       </div>
     </div>
   );
