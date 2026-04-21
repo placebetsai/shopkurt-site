@@ -7,6 +7,7 @@ export default function ProductCard({ product }) {
   const compareAt = product.compareAtPriceRange?.minVariantCompareAtPrice;
   const hasDiscount =
     compareAt && parseFloat(compareAt.amount) > parseFloat(price.amount);
+  const label = product.productType || 'Fashionistas.ai';
 
   return (
     <Link href={`/products/${product.handle}`} className="product-card">
@@ -25,12 +26,9 @@ export default function ProductCard({ product }) {
         {hasDiscount && (
           <span className="product-card-badge">Sale</span>
         )}
-        <div className="product-card-quick">
-          <button>Quick Add</button>
-        </div>
       </div>
       <div className="product-card-body">
-        <p className="product-card-brand">Fashionistas.ai</p>
+        <p className="product-card-brand">{label}</p>
         <h3 className="product-card-title">{product.title}</h3>
         <div className="product-card-price">
           <span className="price-current">
