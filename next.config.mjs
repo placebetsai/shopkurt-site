@@ -10,6 +10,12 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      { source: '/shop', destination: '/products', permanent: true },
+      { source: '/shop/:slug*', destination: '/products', permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;
