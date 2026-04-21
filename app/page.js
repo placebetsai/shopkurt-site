@@ -47,18 +47,114 @@ const CATEGORY_IMAGES = {
   'trending-items': 'https://images.unsplash.com/photo-1574015974293-817f0ebebb74?w=1200&q=80',
 };
 
+// 9-tile category grid to sit BEFORE the Shopify-driven "Browse by category" row.
+// Links target /collections/<slug>; if a collection doesn't exist the collection
+// page should render a graceful empty state (handled separately).
+const CATEGORY_TILES = [
+  {
+    label: 'Dresses',
+    href: '/collections/dresses',
+    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200&q=80',
+  },
+  {
+    label: 'Tops',
+    href: '/collections/tops',
+    image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1200&q=80',
+  },
+  {
+    label: 'Bottoms',
+    href: '/collections/bottoms',
+    image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80',
+  },
+  {
+    label: 'Sets & Jumpsuits',
+    href: '/collections/sets-jumpsuits',
+    image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1200&q=80',
+  },
+  {
+    label: 'Outerwear',
+    href: '/collections/outerwear',
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80',
+  },
+  {
+    label: 'Shoes',
+    href: '/collections/fashion',
+    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=80',
+  },
+  {
+    label: 'Bags',
+    href: '/collections/bags',
+    image: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=1200&q=80',
+  },
+  {
+    label: 'Jewelry',
+    href: '/collections/jewelry',
+    image: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=1200&q=80',
+  },
+  {
+    label: 'Sale',
+    href: '/collections/sale',
+    image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=80',
+  },
+];
+
+const AESTHETIC_TILES = [
+  {
+    label: 'Coquette',
+    note: 'Soft, feminine, ribbon-forward.',
+    href: '/collections/coquette',
+    fallback: '/products?aesthetic=coquette',
+    image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=1200&q=80',
+  },
+  {
+    label: 'Bourgeois',
+    note: 'Quiet luxury — loafers, trench, pearls.',
+    href: '/collections/bourgeois',
+    fallback: '/products?aesthetic=bourgeois',
+    image: 'https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=1200&q=80',
+  },
+  {
+    label: 'Y2K',
+    note: 'Low-rise, baby tees, rhinestones.',
+    href: '/collections/y2k',
+    fallback: '/products?aesthetic=y2k',
+    image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=1200&q=80',
+  },
+  {
+    label: 'Boho',
+    note: 'Flowy silhouettes, earth tones, fringe.',
+    href: '/collections/boho',
+    fallback: '/products?aesthetic=boho',
+    image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=80',
+  },
+  {
+    label: "'80s Power",
+    note: 'Shoulders up, blazers, bold color.',
+    href: '/collections/80s-power',
+    fallback: '/products?aesthetic=80s-power',
+    image: 'https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=1200&q=80',
+  },
+];
+
 function getProductImage(product) {
   return product.images?.edges?.[0]?.node || null;
 }
 
 export default async function HomePage() {
   let products = [];
+  let bestSellers = [];
   let liveCollections = [];
 
   try {
-    products = await getProducts(24);
+    products = await getProducts(50);
   } catch (err) {
     console.error('Failed to fetch products:', err.message);
+  }
+
+  try {
+    bestSellers = await getProducts(16, 'tag:trending OR tag:bestseller OR tag:featured', 'UPDATED_AT');
+  } catch (err) {
+    console.error('Failed to fetch best sellers:', err.message);
   }
 
   try {
@@ -76,10 +172,29 @@ export default async function HomePage() {
   const merchProducts = getMerchandiseableProducts(products);
   const displayProducts = merchProducts.length >= 8 ? merchProducts : products;
   const heroProducts = displayProducts.slice(0, 3);
+  const heroIds = new Set(heroProducts.map((p) => p.id));
   const sections = buildMerchSections(displayProducts, 4);
   const allPromos = buildCollectionPromos(displayProducts);
   const visibleSections = allPromos.filter((promo) => liveHandles.has(promo.slug));
-  const featuredProducts = displayProducts.slice(0, 8);
+  const justInProducts = displayProducts.filter((p) => !heroIds.has(p.id)).slice(0, 16);
+  const trendingProducts = (bestSellers || []).filter((p) => !heroIds.has(p.id)).slice(0, 8);
+
+  // Rewrite category tile hrefs: if the slug IS NOT a live Shopify collection,
+  // send the click to /products?category=<label> so the user lands somewhere
+  // useful rather than a dead /collections/<slug> page.
+  const categoryTilesResolved = CATEGORY_TILES.map((tile) => {
+    const slug = tile.href.replace('/collections/', '');
+    if (liveHandles.has(slug)) return tile;
+    return {
+      ...tile,
+      href: `/products?category=${encodeURIComponent(tile.label)}`,
+    };
+  });
+
+  const aestheticTilesResolved = AESTHETIC_TILES.map((tile) => {
+    const slug = tile.href.replace('/collections/', '');
+    return liveHandles.has(slug) ? tile : { ...tile, href: tile.fallback };
+  });
 
   return (
     <>
@@ -218,11 +333,34 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="section fashionistas-tile-section" style={{ paddingBottom: 0 }}>
+        <div className="container">
+          <div className="fashionistas-section-head">
+            <p className="fashionistas-kicker">Shop By Category</p>
+            <h2 className="fashionistas-display-title">Everything, sorted.</h2>
+          </div>
+          <div className="fashionistas-tile-grid">
+            {categoryTilesResolved.map((tile) => (
+              <Link key={tile.label} href={tile.href} className="fashionistas-tile-card">
+                <div
+                  className="fashionistas-tile-media"
+                  style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%), url('${tile.image}')` }}
+                  aria-hidden="true"
+                />
+                <div className="fashionistas-tile-label">
+                  <span>{tile.label}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {visibleSections.length > 0 && (
         <section className="section fashionistas-merch-section">
           <div className="container">
             <div className="fashionistas-section-head">
-              <p className="fashionistas-kicker">Shop By Category</p>
+              <p className="fashionistas-kicker">Live Collections</p>
               <h2 className="fashionistas-display-title">Browse by category.</h2>
             </div>
             <div className="fashionistas-category-grid">
@@ -312,6 +450,30 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="section fashionistas-aesthetic-section" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <div className="fashionistas-section-head">
+            <p className="fashionistas-kicker">Shop By Aesthetic</p>
+            <h2 className="fashionistas-display-title">Find your vibe.</h2>
+          </div>
+          <div className="fashionistas-aesthetic-grid">
+            {aestheticTilesResolved.map((tile) => (
+              <Link key={tile.label} href={tile.href} className="fashionistas-aesthetic-card">
+                <div
+                  className="fashionistas-aesthetic-media"
+                  style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%), url('${tile.image}')` }}
+                  aria-hidden="true"
+                />
+                <div className="fashionistas-aesthetic-body">
+                  <h3>{tile.label}</h3>
+                  <p>{tile.note}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {sections.length > 0 && (
         <section className="section" style={{ paddingTop: 0 }}>
           <div className="container">
@@ -336,6 +498,27 @@ export default async function HomePage() {
         </section>
       )}
 
+      {trendingProducts.length > 0 && (
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <div className="fashionistas-section-head">
+              <p className="fashionistas-kicker">Best Sellers</p>
+              <h2 className="fashionistas-display-title">What&rsquo;s moving right now.</h2>
+            </div>
+            <div className="product-grid">
+              {trendingProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+              <Link href="/collections/trending-items" className="btn btn-outline">
+                Shop All Bestsellers
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">
           <div className="fashionistas-section-head">
@@ -343,10 +526,10 @@ export default async function HomePage() {
             <h2 className="fashionistas-display-title">Just in.</h2>
           </div>
 
-          {featuredProducts.length > 0 ? (
+          {justInProducts.length > 0 ? (
             <>
               <div className="product-grid">
-                {featuredProducts.map((product) => (
+                {justInProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
@@ -362,6 +545,34 @@ export default async function HomePage() {
               <p>New arrivals are loading — check back shortly.</p>
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="section fashionistas-newsletter-section">
+        <div className="container">
+          <div className="fashionistas-newsletter">
+            <div className="fashionistas-newsletter-copy">
+              <p className="fashionistas-kicker">Get 15% off</p>
+              <h2 className="fashionistas-display-title">Join the list.</h2>
+              <p className="fashionistas-lead">
+                New drops, restocks, and editor picks — straight to your inbox.
+              </p>
+            </div>
+            <form
+              className="fashionistas-newsletter-form"
+              action="/contact"
+              method="post"
+            >
+              <input
+                type="email"
+                name="email"
+                placeholder="your@email.com"
+                required
+                aria-label="Email address"
+              />
+              <button type="submit" className="btn btn-primary">Subscribe</button>
+            </form>
+          </div>
         </div>
       </section>
     </>

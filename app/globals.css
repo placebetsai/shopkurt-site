@@ -95,11 +95,63 @@ img {
 
 .nav-center {
   display: flex;
-  gap: 40px;
+  gap: 28px;
   list-style: none;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  align-items: center;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-item-sale > a {
+  color: #ff3b6b;
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 14px 0;
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+  z-index: 200;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  margin-top: 10px;
+}
+
+.nav-item:hover .nav-dropdown,
+.nav-dropdown-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-dropdown li a {
+  display: block;
+  padding: 8px 22px;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text, #111);
+  white-space: nowrap;
+}
+
+.nav-dropdown li a:hover {
+  background: #f7f5f1;
 }
 
 .nav-center a {
@@ -2155,4 +2207,172 @@ img {
   .nav-center { display: none; }
   .nav-hamburger { display: block; }
   .nav-right { display: flex; align-items: center; gap: 16px; }
+}
+
+/* ===== CATEGORY TILE GRID ===== */
+.fashionistas-tile-section {
+  padding-top: 64px;
+}
+
+.fashionistas-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.fashionistas-tile-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 2px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.fashionistas-tile-media {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+
+.fashionistas-tile-card:hover .fashionistas-tile-media {
+  transform: scale(1.04);
+}
+
+.fashionistas-tile-label {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+.fashionistas-tile-label span {
+  display: inline-block;
+  font-size: 1.2rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 8px 14px;
+  backdrop-filter: blur(2px);
+}
+
+@media (max-width: 900px) {
+  .fashionistas-tile-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px) {
+  .fashionistas-tile-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== AESTHETIC TILES ===== */
+.fashionistas-aesthetic-section {
+  padding-top: 64px;
+}
+
+.fashionistas-aesthetic-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.fashionistas-aesthetic-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 2px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.fashionistas-aesthetic-media {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+
+.fashionistas-aesthetic-card:hover .fashionistas-aesthetic-media {
+  transform: scale(1.04);
+}
+
+.fashionistas-aesthetic-body {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+.fashionistas-aesthetic-body h3 {
+  font-size: 1.2rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 6px;
+}
+
+.fashionistas-aesthetic-body p {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .fashionistas-aesthetic-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ===== NEWSLETTER ===== */
+.fashionistas-newsletter-section {
+  background: #f7f5f1;
+  padding: 80px 0;
+}
+
+.fashionistas-newsletter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.fashionistas-newsletter-copy h2 {
+  margin-bottom: 8px;
+}
+
+.fashionistas-newsletter-form {
+  display: flex;
+  gap: 8px;
+}
+
+.fashionistas-newsletter-form input[type="email"] {
+  flex: 1;
+  padding: 14px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #fff;
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.fashionistas-newsletter-form input[type="email"]:focus {
+  border-color: var(--accent, #c9a96e);
+}
+
+@media (max-width: 900px) {
+  .fashionistas-newsletter { grid-template-columns: 1fr; }
+}
+
+/* ===== PRODUCT GRID: 4 columns desktop ===== */
+@media (min-width: 1100px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

@@ -2,8 +2,119 @@
 import { useState } from "react";
 import Link from "next/link";
 
+// Top-level category tree (order matters: New In first, Sale last).
+// Slugs map to /collections/<slug> — if a slug doesn't resolve in Shopify,
+// the collection page itself falls back gracefully.
+const NAV_LINKS = [
+  {
+    label: "New In",
+    href: "/collections/trending-items",
+    children: [
+      { label: "Just In", href: "/collections/trending-items" },
+      { label: "Back In Stock", href: "/collections/back-in-stock" },
+      { label: "Trending Now", href: "/collections/trending-items" },
+    ],
+  },
+  {
+    label: "Dresses",
+    href: "/collections/dresses",
+    children: [
+      { label: "Mini", href: "/collections/mini-dresses" },
+      { label: "Midi", href: "/collections/midi-dresses" },
+      { label: "Maxi", href: "/collections/maxi-dresses" },
+      { label: "Going Out", href: "/collections/going-out-dresses" },
+      { label: "Wedding Guest", href: "/collections/wedding-guest" },
+      { label: "Casual", href: "/collections/casual-dresses" },
+      { label: "Lace & Slip", href: "/collections/lace-slip" },
+    ],
+  },
+  {
+    label: "Tops",
+    href: "/collections/tops",
+    children: [
+      { label: "Crop", href: "/collections/crop-tops" },
+      { label: "Bodysuits", href: "/collections/bodysuits" },
+      { label: "Blouses", href: "/collections/blouses" },
+      { label: "Tees & Tanks", href: "/collections/tees-tanks" },
+      { label: "Sweaters", href: "/collections/sweaters" },
+      { label: "Going Out", href: "/collections/going-out-tops" },
+    ],
+  },
+  {
+    label: "Bottoms",
+    href: "/collections/bottoms",
+    children: [
+      { label: "Jeans", href: "/collections/jeans" },
+      { label: "Pants", href: "/collections/pants" },
+      { label: "Skirts", href: "/collections/skirts" },
+      { label: "Shorts", href: "/collections/shorts" },
+    ],
+  },
+  {
+    label: "Sets",
+    href: "/collections/sets-jumpsuits",
+    children: [
+      { label: "Matching Sets", href: "/collections/matching-sets" },
+      { label: "Jumpsuits", href: "/collections/jumpsuits" },
+      { label: "Rompers", href: "/collections/rompers" },
+    ],
+  },
+  {
+    label: "Outerwear",
+    href: "/collections/outerwear",
+    children: [
+      { label: "Jackets", href: "/collections/jackets" },
+      { label: "Trench", href: "/collections/trench" },
+      { label: "Bombers", href: "/collections/bombers" },
+      { label: "Blazers", href: "/collections/blazers" },
+    ],
+  },
+  {
+    label: "Shoes",
+    href: "/collections/fashion",
+    children: [
+      { label: "Heels", href: "/collections/heels" },
+      { label: "Sandals", href: "/collections/sandals" },
+      { label: "Flats & Ballet", href: "/collections/flats" },
+      { label: "Loafers & Derby", href: "/collections/loafers" },
+      { label: "Sneakers", href: "/collections/sneakers" },
+      { label: "Boots", href: "/collections/boots" },
+    ],
+  },
+  {
+    label: "Accessories",
+    href: "/collections/accessories",
+    children: [
+      { label: "Bags", href: "/collections/bags" },
+      { label: "Jewelry", href: "/collections/jewelry" },
+      { label: "Belts", href: "/collections/belts" },
+      { label: "Scarves", href: "/collections/scarves" },
+      { label: "Sunglasses", href: "/collections/sunglasses" },
+      { label: "Hair", href: "/collections/hair" },
+      { label: "Hats", href: "/collections/hats" },
+    ],
+  },
+  {
+    label: "Aesthetic",
+    href: "/collections/aesthetic",
+    children: [
+      { label: "Coquette", href: "/collections/coquette" },
+      { label: "Bourgeois", href: "/collections/bourgeois" },
+      { label: "Y2K", href: "/collections/y2k" },
+      { label: "Boho", href: "/collections/boho" },
+      { label: "'80s Power", href: "/collections/80s-power" },
+    ],
+  },
+  {
+    label: "Sale",
+    href: "/collections/sale",
+    children: null,
+  },
+];
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   return (
     <nav className="navbar">
@@ -13,10 +124,29 @@ export default function Navbar() {
         </Link>
 
         <ul className="nav-center">
-          <li><Link href="/products">Shop All</Link></li>
-          <li><Link href="/collections">Collections</Link></li>
-          <li><Link href="/collections/trending-items">Trending</Link></li>
-          <li><Link href="/trending-accessories">Accessories</Link></li>
+          {NAV_LINKS.map((link) => (
+            <li
+              key={link.label}
+              className={`nav-item ${link.children ? "nav-item-has-children" : ""} ${link.label === "Sale" ? "nav-item-sale" : ""}`}
+              onMouseEnter={() => setOpenDropdown(link.label)}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <Link href={link.href}>{link.label}</Link>
+              {link.children && (
+                <div
+                  className={`nav-dropdown ${openDropdown === link.label ? "nav-dropdown-open" : ""}`}
+                >
+                  <ul>
+                    {link.children.map((child) => (
+                      <li key={child.href}>
+                        <Link href={child.href}>{child.label}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </li>
+          ))}
         </ul>
 
         <div className="nav-right">
@@ -50,13 +180,11 @@ export default function Navbar() {
 
       {open && (
         <div className="mobile-menu">
-          <Link href="/products" onClick={() => setOpen(false)}>Shop All</Link>
-          <Link href="/collections" onClick={() => setOpen(false)}>Collections</Link>
-          <Link href="/collections/beauty-and-personal-care" onClick={() => setOpen(false)}>Beauty</Link>
-          <Link href="/collections/fashion" onClick={() => setOpen(false)}>Fashion</Link>
-          <Link href="/collections/accessories" onClick={() => setOpen(false)}>Accessories</Link>
-          <Link href="/collections/trending-items" onClick={() => setOpen(false)}>Trending</Link>
-          <Link href="/vacation-sandals" onClick={() => setOpen(false)}>Vacation</Link>
+          {NAV_LINKS.map((link) => (
+            <Link key={link.label} href={link.href} onClick={() => setOpen(false)}>
+              {link.label}
+            </Link>
+          ))}
           <Link href="/cart" onClick={() => setOpen(false)} className="mobile-menu-cart">Shopping Bag</Link>
         </div>
       )}
