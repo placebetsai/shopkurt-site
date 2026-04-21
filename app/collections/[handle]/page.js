@@ -49,6 +49,46 @@ function buildCollectionStory(handle, title) {
   return `Fashionistas.ai uses collection pages to turn broad browsing into intent-based shopping, with cleaner grouping, stronger pricing context, and products that fit a real style moment.`;
 }
 
+function getCollectionLead(handle, title) {
+  const normalized = handle.toLowerCase();
+  if (normalized.includes('fashion')) {
+    return 'The main fashion lane: shoes, styling pieces, and trend-led catalog anchors.';
+  }
+  if (normalized.includes('accessories')) {
+    return 'Small-ticket add-ons, gifting pieces, and faster impulse buys that lift average order value.';
+  }
+  if (normalized.includes('beauty')) {
+    return 'Beauty and personal-care picks edited to feel more current than a generic marketplace shelf.';
+  }
+  if (normalized.includes('security')) {
+    return 'A separate surveillance lane so the camera inventory stays searchable without muddying the main fashion edit.';
+  }
+  if (normalized.includes('trending')) {
+    return 'A rolling collection of higher-momentum items and lower-friction impulse clicks.';
+  }
+  return `${title} is curated as a searchable lane inside Fashionistas.ai, not just a back-office category handle.`;
+}
+
+function sanitizeCollectionDescription(description) {
+  if (!description) return '';
+  const normalized = description.trim().toLowerCase();
+  const blocked = [
+    'put your category description here',
+    'put your collection description here',
+    'add your collection description',
+    'describe your collection',
+    'collection description',
+    'category description',
+  ];
+  if (blocked.some((phrase) => normalized.includes(phrase))) {
+    return '';
+  }
+  if (normalized.length < 20) {
+    return '';
+  }
+  return description.trim();
+}
+
 export default async function CollectionPage({ params, searchParams }) {
   const { handle } = await params;
   const resolvedSearch = await searchParams;
@@ -119,6 +159,8 @@ export default async function CollectionPage({ params, searchParams }) {
     { label: 'Best Selling', value: 'best-selling' },
   ];
   const collectionStory = buildCollectionStory(handle, collection.title);
+  const collectionLead = getCollectionLead(handle, collection.title);
+  const displayDescription = sanitizeCollectionDescription(collection.description);
 
   return (
     <div style={{ background: '#050505', minHeight: '100vh' }}>
@@ -157,68 +199,37 @@ export default async function CollectionPage({ params, searchParams }) {
       </div>
 
       {/* Banner header */}
-      <div
-        style={{
-          textAlign: 'center',
-          padding: '60px 24px 20px',
-        }}
-      >
-        <h1
-          style={{
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            fontWeight: '300',
-            color: '#fff',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
-            margin: 0,
-          }}
-        >
-          {collection.title}
-        </h1>
-        {collection.description && (
-          <p
-            style={{
-              color: '#888',
-              fontSize: '0.95rem',
-              maxWidth: '600px',
-              margin: '16px auto 0',
-              lineHeight: '1.7',
-            }}
-          >
-            {collection.description}
-          </p>
-        )}
-        <p
-          style={{
-            color: '#9a948d',
-            fontSize: '0.92rem',
-            maxWidth: '720px',
-            margin: '18px auto 0',
-            lineHeight: '1.8',
-          }}
-        >
-          {collectionStory}
-        </p>
-        <p
-          style={{
-            fontSize: '0.8rem',
-            color: '#c9a96e',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            marginTop: '16px',
-          }}
-        >
-          {collection.products.length}{' '}
-          {collection.products.length === 1 ? 'PIECE' : 'PIECES'}
-        </p>
-        <div
-          style={{
-            width: '60px',
-            height: '1px',
-            background: '#c9a96e',
-            margin: '24px auto 0',
-          }}
-        />
+      <div className="container" style={{ paddingTop: '44px', paddingBottom: '28px' }}>
+        <div className="fashionistas-collection-hero">
+          <div className="fashionistas-collection-copy">
+            <p className="fashionistas-kicker">Collection Edit</p>
+            <h1>{collection.title}</h1>
+            <p className="fashionistas-collection-lead">{collectionLead}</p>
+            {displayDescription && (
+              <p className="fashionistas-collection-description">{displayDescription}</p>
+            )}
+            <p className="fashionistas-collection-story">{collectionStory}</p>
+            <div className="fashionistas-collection-stats">
+              <span>{collection.products.length} {collection.products.length === 1 ? 'piece' : 'pieces'}</span>
+              <span>intent-led merchandising</span>
+              <span>live Shopify inventory</span>
+            </div>
+          </div>
+
+          <div className="fashionistas-collection-visual">
+            {collection.image?.url ? (
+              <img
+                src={collection.image.url}
+                alt={collection.image.altText || collection.title}
+                className="fashionistas-collection-image"
+              />
+            ) : (
+              <div className="fashionistas-collection-fallback">
+                <span>{collection.title}</span>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Sort */}
