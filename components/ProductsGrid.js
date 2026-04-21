@@ -1,34 +1,65 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
-
-const FILTERS = [
-  { label: 'All', match: () => true },
-  { label: 'Shoes', match: (p) => /\b(shoe|sneaker|boot|sandal|loafer|heel|flat|slipper|wedge)\b/i.test(`${p.productType || ''} ${p.title || ''}`) },
-  { label: 'Accessories', match: (p) => /\b(accessor|bag|tote|crossbody|wallet|belt|clip|keychain)\b/i.test(`${p.productType || ''} ${p.title || ''}`) },
-  { label: 'Beauty', match: (p) => /\b(beauty|cosmetic|lash|lip|nail|makeup|skin|hair)\b/i.test(`${p.productType || ''} ${p.title || ''}`) },
-  { label: 'Trending', match: (p) => /\b(trending|viral|tiktok|fashion)\b/i.test(`${p.tags?.join(' ') || ''} ${p.productType || ''}`) },
-];
+import { getVisibleFilterLanes } from '../lib/merchandising';
 
 export default function ProductsGrid({ products }) {
-  const [activeFilter, setActiveFilter] = useState('All');
+  const filters = getVisibleFilterLanes(products);
+  const [activeFilter, setActiveFilter] = useState('all');
 
-  const active = FILTERS.find((filter) => filter.label === activeFilter) || FILTERS[0];
+  useEffect(() => {
+    if (!filters.some((filter) => filter.key === activeFilter)) {
+      setActiveFilter(filters[0]?.key || 'all');
+    }
+  }, [activeFilter, filters]);
+
+  const active = filters.find((filter) => filter.key === activeFilter) || filters[0];
   const filtered = products.filter(active.match);
 
   return (
     <div style={{ paddingBottom: '120px' }}>
       <div className="filter-pills">
-        {FILTERS.map((filter) => (
+        {filters.map((filter) => (
           <button
-            key={filter.label}
-            className={`filter-pill ${activeFilter === filter.label ? 'active' : ''}`}
-            onClick={() => setActiveFilter(filter.label)}
+            key={filter.key}
+            className={`filter-pill ${activeFilter === filter.key ? 'active' : ''}`}
+            onClick={() => setActiveFilter(filter.key)}
+            aria-pressed={activeFilter === filter.key}
           >
-            {filter.label}
+            {filter.label} <span style={{ color: 'var(--text-secondary)' }}>({filter.count})</span>
           </button>
         ))}
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'baseline',
+          gap: 16,
+          padding: '0 0 24px',
+          flexWrap: 'wrap',
+        }}
+      >
+        <p
+          style={{
+            fontSize: '0.72rem',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: 'var(--text-secondary)',
+          }}
+        >
+          {active.label}
+        </p>
+        <p
+          style={{
+            fontSize: '0.85rem',
+            color: 'var(--text-secondary)',
+          }}
+        >
+          {filtered.length} style-forward picks
+        </p>
       </div>
 
       <div className="product-grid">
@@ -46,7 +77,7 @@ export default function ProductsGrid({ products }) {
               color: '#8a8580',
             }}
           >
-            No products matched this edit yet. Try another lane or browse the full catalog.
+            No matches in this filter. Try another category or shop all products.
           </p>
         </div>
       )}

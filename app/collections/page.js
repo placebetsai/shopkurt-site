@@ -1,19 +1,61 @@
 import Link from 'next/link';
 import { getCollections } from '../../lib/shopify';
 
+const BLOCKED_COLLECTION_PATTERNS = [
+  'security',
+  'camera',
+  'hidden',
+  'nanny',
+  'doorbell',
+  'dash',
+  'placebets',
+  'spanishtvshows',
+  'ihatecollege',
+  'dorm',
+  'frontpage',
+  'rn-image',
+  'page-',
+];
+
 export const metadata = {
-  title: 'Collections | Fashionistas.ai',
+  title: 'Shop All Collections | Fashionistas',
   description:
-    'Browse Fashionistas.ai collections for wedges, sandals, boots, jewelry, bags, and trend-led accessories. Shop curated categories built for search, gifting, and seasonal style.',
+    'Shop shoes, accessories, beauty, and more at Fashionistas. Browse every active collection.',
   alternates: {
     canonical: 'https://fashionistas.ai/collections',
   },
   openGraph: {
-    title: 'Collections | Fashionistas.ai',
-    description: 'Shop collections for shoes, accessories, and affordable trend-led style.',
+    title: 'Shop All Collections | Fashionistas',
+    description: 'Shop shoes, accessories, beauty, and giftable finds.',
     url: 'https://fashionistas.ai/collections',
   },
 };
+
+const FEATURED_PATHS = [
+  { href: '/interview-shoes', label: 'Interview Shoes' },
+  { href: '/vacation-sandals', label: 'Vacation Sandals' },
+  { href: '/trending-accessories', label: 'Trending Accessories' },
+  { href: '/collections/fashion', label: 'Shop Fashion' },
+  { href: '/products', label: 'All Products' },
+];
+
+function collectionMood(handle) {
+  const normalized = handle.toLowerCase();
+
+  if (normalized.includes('fashion')) {
+    return 'Shoes, outfit anchors, and core style pieces.';
+  }
+  if (normalized.includes('accessories')) {
+    return 'Jewelry, bags, and finishing pieces.';
+  }
+  if (normalized.includes('beauty')) {
+    return 'Beauty, fragrance, and prep-table picks.';
+  }
+  if (normalized.includes('trending')) {
+    return 'This week’s most-shopped styles.';
+  }
+  return 'Shop the collection.';
+}
 
 export default async function CollectionsPage() {
   let collections = [];
@@ -24,228 +66,73 @@ export default async function CollectionsPage() {
     console.error('Failed to fetch collections:', err.message);
   }
 
-  return (
-    <div style={{ background: '#050505', minHeight: '100vh' }}>
-      {/* Header */}
-      <div
-        style={{
-          textAlign: 'center',
-          padding: '80px 24px 60px',
-        }}
-      >
-        <h1
-          style={{
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            fontWeight: '300',
-            color: '#fff',
-            letterSpacing: '0.35em',
-            textTransform: 'uppercase',
-            margin: 0,
-          }}
-        >
-          Collections
-        </h1>
-        <div
-          style={{
-            width: '60px',
-            height: '1px',
-            background: '#c9a96e',
-            margin: '24px auto 0',
-          }}
-        />
-        <p
-          style={{
-            maxWidth: 720,
-            margin: '24px auto 0',
-            color: '#9a948d',
-            lineHeight: 1.8,
-            fontSize: '0.95rem',
-          }}
-        >
-          These category pages are where Fashionistas.ai gets sharper: shoes
-          that solve a specific occasion, accessories that lift a basic outfit,
-          and seasonal trends grouped in a way that is easier to shop than a
-          generic catalog feed.
-        </p>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '12px',
-            flexWrap: 'wrap',
-            marginTop: '28px',
-          }}
-        >
-          {[
-            { href: '/interview-shoes', label: 'Interview Shoes' },
-            { href: '/vacation-sandals', label: 'Vacation Sandals' },
-            { href: '/trending-accessories', label: 'Trending Accessories' },
-          ].map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              style={{
-                display: 'inline-block',
-                padding: '12px 18px',
-                border: '1px solid #2a2622',
-                color: '#fff',
-                fontSize: '0.7rem',
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      </div>
+  const visibleCollections = collections
+    .filter((collection) => (collection.productCount || 0) > 0)
+    .filter((collection) => {
+      const haystack = `${collection.handle} ${collection.title}`.toLowerCase();
+      return !BLOCKED_COLLECTION_PATTERNS.some((pattern) => haystack.includes(pattern));
+    });
 
-      {collections.length > 0 ? (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '4px',
-            maxWidth: '1400px',
-            margin: '0 auto',
-            padding: '0 24px 100px',
-          }}
-        >
-          {collections.map((collection) => (
-            <Link
-              key={collection.id}
-              href={`/collections/${collection.handle}`}
-              style={{
-                position: 'relative',
-                display: 'block',
-                aspectRatio: '4 / 5',
-                overflow: 'hidden',
-                textDecoration: 'none',
-              }}
-            >
-              {collection.image ? (
-                <img
-                  src={collection.image.url}
-                  alt={collection.image.altText || collection.title}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.6s ease, filter 0.4s ease',
-                  }}
-                  loading="lazy"
-                  onMouseOver="this.style.transform='scale(1.03)';this.style.filter='brightness(0.7)'"
-                  onMouseOut="this.style.transform='scale(1)';this.style.filter='brightness(0.85)'"
-                />
-              ) : (
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    background: '#1a1a1a',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                />
-              )}
-              {/* Dark overlay */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: collection.image
-                    ? 'linear-gradient(transparent 40%, rgba(5,5,5,0.7))'
-                    : 'transparent',
-                  pointerEvents: 'none',
-                }}
-              />
-              {/* Text overlay */}
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: '40px 32px',
-                }}
-              >
-                <h2
-                  style={{
-                    fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
-                    fontWeight: '400',
-                    color: '#fff',
-                    letterSpacing: '0.2em',
-                    textTransform: 'uppercase',
-                    margin: 0,
-                  }}
-                >
-                  {collection.title}
-                </h2>
-                {collection.productCount > 0 && (
-                  <p
-                    style={{
-                      fontSize: '0.75rem',
-                      color: '#c9a96e',
-                      letterSpacing: '0.15em',
-                      textTransform: 'uppercase',
-                      marginTop: '8px',
-                    }}
-                  >
-                    {collection.productCount}{' '}
-                    {collection.productCount === 1 ? 'PIECE' : 'PIECES'}
-                  </p>
-                )}
-              </div>
-            </Link>
-          ))}
+  return (
+    <div className="fashionistas-collections-page">
+      <section className="fashionistas-collections-hero">
+        <div className="container">
+          <div className="fashionistas-section-head">
+            <p className="fashionistas-kicker">Collections</p>
+            <h1 className="fashionistas-display-title">Shop by category.</h1>
+            <p className="fashionistas-lead">
+              Shoes, accessories, beauty, and more. Every collection, in one place.
+            </p>
+          </div>
+          <div className="fashionistas-collections-links">
+            {FEATURED_PATHS.map((item) => (
+              <Link key={item.href} href={item.href} className="fashionistas-chip-link">
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
+      </section>
+
+      {visibleCollections.length > 0 ? (
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <div className="fashionistas-collections-grid">
+              {visibleCollections.map((collection) => (
+                <Link key={collection.id} href={`/collections/${collection.handle}`} className="fashionistas-collection-tile">
+                  <div className="fashionistas-collection-tile-media">
+                    {collection.image?.url ? (
+                      <img
+                        src={collection.image.url}
+                        alt={collection.image.altText || collection.title}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="fashionistas-collection-fallback">
+                        <span>{collection.title}</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="fashionistas-collection-tile-copy">
+                    <p>{collection.productCount} products</p>
+                    <h2>{collection.title}</h2>
+                    <span>{collectionMood(collection.handle)}</span>
+                    <strong>Shop collection</strong>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
       ) : (
-        <div
-          style={{
-            textAlign: 'center',
-            padding: '80px 24px',
-          }}
-        >
-          <h2
-            style={{
-              fontSize: '1.2rem',
-              fontWeight: '300',
-              color: '#c9a96e',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-            }}
-          >
-            Coming Soon
-          </h2>
-          <p
-            style={{
-              color: '#888',
-              fontSize: '0.95rem',
-              marginTop: '12px',
-              lineHeight: '1.8',
-            }}
-          >
-            Our curated collections are being prepared.
-          </p>
-          <Link
-            href="/products"
-            style={{
-              display: 'inline-block',
-              marginTop: '32px',
-              padding: '14px 40px',
-              border: '1px solid #c9a96e',
-              color: '#c9a96e',
-              fontSize: '0.8rem',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              textDecoration: 'none',
-              transition: 'all 0.3s ease',
-            }}
-          >
-            Browse All Products
-          </Link>
+        <div className="empty-state">
+          <h2>Restocking</h2>
+          <p>New collections are loading — check back shortly.</p>
+          <div style={{ marginTop: '24px' }}>
+            <Link href="/products" className="btn btn-outline">
+              Shop All Products
+            </Link>
+          </div>
         </div>
       )}
     </div>

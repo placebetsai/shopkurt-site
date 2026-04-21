@@ -13,10 +13,10 @@ export default function Navbar() {
         </Link>
 
         <ul className="nav-center">
-          <li><Link href="/products">Shop</Link></li>
+          <li><Link href="/products">Shop All</Link></li>
           <li><Link href="/collections">Collections</Link></li>
           <li><Link href="/collections/trending-items">Trending</Link></li>
-          <li><Link href="/about">About</Link></li>
+          <li><Link href="/trending-accessories">Accessories</Link></li>
         </ul>
 
         <div className="nav-right">
@@ -56,7 +56,7 @@ export default function Navbar() {
           <Link href="/collections/fashion" onClick={() => setOpen(false)}>Fashion</Link>
           <Link href="/collections/accessories" onClick={() => setOpen(false)}>Accessories</Link>
           <Link href="/collections/trending-items" onClick={() => setOpen(false)}>Trending</Link>
-          <Link href="/about" onClick={() => setOpen(false)}>About</Link>
+          <Link href="/vacation-sandals" onClick={() => setOpen(false)}>Vacation</Link>
           <Link href="/cart" onClick={() => setOpen(false)} className="mobile-menu-cart">Shopping Bag</Link>
         </div>
       )}

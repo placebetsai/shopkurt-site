@@ -4,24 +4,24 @@ import Link from 'next/link';
 import Navbar from '../components/Navbar';
 
 export const metadata = {
-  title: 'FASHIONISTAS.AI | Shoes, Accessories & Affordable Style',
+  title: 'Fashionistas | Shoes, Accessories & Beauty',
   description:
-    'Shop wedges, sandals, heels, flats, jewelry, bags, and affordable style upgrades at Fashionistas.ai. Built for trending looks, interviews, vacations, and everyday wear.',
+    'Shop shoes, bags, jewelry, and beauty at Fashionistas. New drops weekly. Free shipping over $50.',
   metadataBase: new URL('https://fashionistas.ai'),
   alternates: {
     canonical: 'https://fashionistas.ai',
   },
   openGraph: {
-    title: 'FASHIONISTAS.AI | Shoes, Accessories & Affordable Style',
-    description: 'Wedges, sandals, accessories, and low-cost outfit upgrades for interviews, vacations, and everyday style.',
+    title: 'Fashionistas | Shoes, Accessories & Beauty',
+    description: 'Shop shoes, bags, jewelry, and beauty. New drops weekly. Free shipping over $50.',
     url: 'https://fashionistas.ai',
-    siteName: 'Fashionistas.ai',
+    siteName: 'Fashionistas',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'FASHIONISTAS.AI | Shoes, Accessories & Affordable Style',
-    description: 'Wedges, sandals, accessories, and low-cost outfit upgrades for interviews, vacations, and everyday style.',
+    title: 'Fashionistas | Shoes, Accessories & Beauty',
+    description: 'Shop shoes, bags, jewelry, and beauty. New drops weekly. Free shipping over $50.',
   },
   icons: {
     icon: '/favicon.svg',
@@ -85,6 +85,14 @@ export default function RootLayout({ children }) {
         <footer className="footer">
           <div className="container">
             <p className="footer-brand">FASHIONISTAS<span style={{ color: '#c9a96e' }}>.AI</span></p>
+            <p className="footer-copy" style={{ maxWidth: '42rem' }}>
+              Shop shoes, accessories, and beauty — new styles added weekly.
+            </p>
+            <div className="fashionistas-topline-points" style={{ justifyContent: 'center' }}>
+              <span>Free shipping over $50</span>
+              <span>Fast checkout</span>
+              <span>New drops weekly</span>
+            </div>
             <nav aria-label="Footer navigation" style={{
               display: 'flex',
               justifyContent: 'center',
