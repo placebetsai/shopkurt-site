@@ -262,6 +262,19 @@ export default async function CollectionPage({ params, searchParams }) {
     }
   }
 
+  if (collection && Array.isArray(collection.products)) {
+    collection.products = dedupeByHandle(collection.products);
+    const tokens = COLLECTION_FALLBACKS[handle];
+    if (tokens?.titleTokens?.length) {
+      const filtered = filterByTitleTokens(
+        collection.products,
+        tokens.titleTokens,
+        tokens.excludeTokens,
+      );
+      if (filtered.length >= 4) collection.products = filtered;
+    }
+  }
+
   if (!collection) {
     return (
       <div className="fashionistas-collection-page">
