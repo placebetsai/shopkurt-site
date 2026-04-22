@@ -99,9 +99,14 @@ function dedupeByHandle(products) {
   const seen = new Set();
   const out = [];
   for (const p of products) {
-    const key = p.handle || p.id;
+    const rawHandle = p.handle || p.id || '';
+    const normalized = String(rawHandle).replace(/-\d+$/, '').toLowerCase();
+    const titleKey = (p.title || '').trim().toLowerCase();
+    const key = normalized || titleKey;
     if (seen.has(key)) continue;
+    if (titleKey && seen.has('t:' + titleKey)) continue;
     seen.add(key);
+    if (titleKey) seen.add('t:' + titleKey);
     out.push(p);
   }
   return out;
