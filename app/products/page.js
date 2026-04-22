@@ -3,6 +3,8 @@ import Link from 'next/link';
 import ProductsGrid from '../../components/ProductsGrid';
 import { getMerchandiseableProducts } from '../../lib/merchandising';
 
+export const runtime = 'edge';
+
 export const metadata = {
   title: 'Shop All Products | Fashionistas',
   description:
