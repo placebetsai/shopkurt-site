@@ -237,7 +237,7 @@ async function getFallbackCollection(handle) {
 
   const deduped = dedupeByHandle(raw);
   const relevant = filterByTitleTokens(deduped, fallback.titleTokens, fallback.excludeTokens);
-  const products = relevant.length >= 4 ? relevant : deduped;
+  const products = relevant.length > 0 ? relevant : deduped;
 
   return {
     id: `fallback-${handle}`,
@@ -276,7 +276,7 @@ export default async function CollectionPage({ params, searchParams }) {
         tokens.titleTokens,
         tokens.excludeTokens,
       );
-      if (filtered.length >= 4) collection.products = filtered;
+      if (filtered.length > 0) collection.products = filtered;
     }
   }
 
