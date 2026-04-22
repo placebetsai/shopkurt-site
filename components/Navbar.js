@@ -93,6 +93,19 @@ const NAV_LINKS = [
     ],
   },
   {
+    label: "Electronics",
+    href: "/collections/security-cameras",
+    children: [
+      { label: "Hidden Cameras", href: "/collections/hidden-cameras" },
+      { label: "Outdoor Cameras", href: "/collections/outdoor-cameras" },
+      { label: "Indoor Cameras", href: "/collections/indoor-cameras" },
+      { label: "Doorbell Cameras", href: "/collections/doorbell-cameras" },
+      { label: "Nanny Cameras", href: "/collections/nanny-cameras" },
+      { label: "Dash Cameras", href: "/collections/dash-cameras" },
+      { label: "Security Cameras", href: "/collections/security-cameras" },
+    ],
+  },
+  {
     label: "Aesthetic",
     href: "/products?aesthetic=all",
     children: [

@@ -266,7 +266,7 @@ export default async function HomePage() {
                 <span>new styles</span>
               </div>
               <div className="fashionistas-hero-stat">
-                <strong>{visibleSections.length || 0}</strong>
+                <strong>{liveHandles.size || 0}</strong>
                 <span>categories</span>
               </div>
               <div className="fashionistas-hero-stat">
