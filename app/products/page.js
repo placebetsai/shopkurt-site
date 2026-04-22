@@ -85,24 +85,29 @@ export default async function ProductsPage({ searchParams }) {
   let filterLabel = null;
   let filterEyebrow = 'Shop All';
 
+  let filterHadNoMatches = false;
   if (categoryRaw) {
     const tokens = CATEGORY_TOKENS[categoryRaw] || [categoryRaw.toLowerCase()];
     const filtered = filterByTokens(displayProducts, tokens);
     if (filtered.length > 0) displayProducts = filtered;
+    else { displayProducts = []; filterHadNoMatches = true; }
     filterLabel = categoryRaw;
     filterEyebrow = 'Category';
   } else if (aestheticRaw && aestheticRaw !== 'all') {
     const tokens = AESTHETIC_TOKENS[aestheticRaw] || [aestheticRaw];
     const filtered = filterByTokens(displayProducts, tokens);
     if (filtered.length > 0) displayProducts = filtered;
+    else { displayProducts = []; filterHadNoMatches = true; }
     filterLabel = aestheticRaw.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
     filterEyebrow = 'Aesthetic';
   }
 
   const heading = filterLabel ? `${filterLabel}` : 'All Products';
-  const intro = filterLabel
-    ? `Showing ${displayProducts.length} ${displayProducts.length === 1 ? 'piece' : 'pieces'} matching ${filterLabel}.`
-    : 'Shoes, bags, jewelry, beauty, and new arrivals — all in one place.';
+  const intro = filterHadNoMatches
+    ? `No ${filterLabel} in stock right now — new drops weekly.`
+    : filterLabel
+      ? `Showing ${displayProducts.length} ${displayProducts.length === 1 ? 'piece' : 'pieces'} matching ${filterLabel}.`
+      : 'Shoes, bags, jewelry, beauty, and new arrivals — all in one place.';
 
   return (
     <div className="container">
@@ -134,10 +139,18 @@ export default async function ProductsPage({ searchParams }) {
       {displayProducts.length > 0 ? (
         <ProductsGrid products={displayProducts} />
       ) : (
-        <div className="empty-state">
-          <p style={{ fontSize: '0.85rem', letterSpacing: '0.1em', color: '#8a8580' }}>
-            No matches {filterLabel ? `for ${filterLabel}` : 'yet'} — check back or shop all collections.
+        <div className="empty-state" style={{ padding: '3rem 1rem', textAlign: 'center' }}>
+          <p style={{ fontSize: '1rem', color: '#e6e0d8', marginBottom: '0.5rem' }}>
+            {filterLabel ? `${filterLabel} is empty right now.` : 'Nothing to show yet.'}
           </p>
+          <p style={{ fontSize: '0.85rem', letterSpacing: '0.08em', color: '#8a8580', marginBottom: '1.5rem' }}>
+            New drops land weekly — check related categories below.
+          </p>
+          <div className="fashionistas-chip-row" style={{ justifyContent: 'center' }}>
+            <Link href="/products" className="fashionistas-chip-link">Shop All Products</Link>
+            <Link href="/collections" className="fashionistas-chip-link">All Collections</Link>
+            <Link href="/collections/trending-items" className="fashionistas-chip-link">Trending</Link>
+          </div>
         </div>
       )}
     </div>
