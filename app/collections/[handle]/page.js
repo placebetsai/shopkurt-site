@@ -12,60 +12,111 @@ const COLLECTION_FALLBACKS = {
   dresses: {
     title: 'Dresses',
     query: 'dress',
+    titleTokens: ['dress', 'gown'],
+    excludeTokens: ['sandal', 'shoe', 'heel', 'boot', 'bag', 'purse'],
   },
   tops: {
     title: 'Tops',
     query: 'top OR blouse OR bodysuit OR sweater OR tee OR tank',
+    titleTokens: ['top', 'blouse', 'bodysuit', 'sweater', 'tee', 't-shirt', 'tank', 'cardigan', 'shirt'],
+    excludeTokens: ['dress', 'pant', 'skirt', 'short', 'jean', 'bag', 'shoe', 'heel', 'sandal'],
   },
   bottoms: {
     title: 'Bottoms',
     query: 'jean OR denim OR pant OR trouser OR skirt OR short',
+    titleTokens: ['jean', 'denim', 'pant', 'trouser', 'skirt', 'short', 'legging'],
+    excludeTokens: ['top', 'dress', 'bag', 'shoe', 'sandal'],
   },
   'sets-jumpsuits': {
     title: 'Sets & Jumpsuits',
-    query: 'set OR jumpsuit OR romper OR playsuit',
+    query: 'jumpsuit OR romper OR playsuit OR "two piece"',
+    titleTokens: ['jumpsuit', 'romper', 'playsuit', 'two-piece', 'two piece'],
+    excludeTokens: ['set of', 'chair', 'lamp'],
   },
   outerwear: {
     title: 'Outerwear',
-    query: 'jacket OR trench OR blazer OR coat',
+    query: 'jacket OR trench OR blazer OR coat OR parka',
+    titleTokens: ['jacket', 'trench', 'blazer', 'coat', 'parka'],
+    excludeTokens: ['bag', 'shoe'],
   },
   bags: {
     title: 'Bags',
-    query: 'bag OR purse OR tote OR clutch',
+    query: 'bag OR purse OR tote OR clutch OR backpack OR handbag',
+    titleTokens: ['bag', 'purse', 'tote', 'clutch', 'backpack', 'handbag', 'wallet', 'crossbody'],
+    excludeTokens: ['camera', 'sleeping bag', 'trash bag'],
   },
   jewelry: {
     title: 'Jewelry',
-    query: 'jewelry OR necklace OR bracelet OR earring OR ring',
+    query: 'jewelry OR necklace OR bracelet OR earring OR ring OR pendant',
+    titleTokens: ['necklace', 'bracelet', 'earring', 'ring', 'pendant', 'jewelry', 'jewellery', 'choker', 'anklet'],
+    excludeTokens: ['airtag', 'phone case', 'camera'],
   },
   sale: {
     title: 'Sale',
     query: 'sale OR clearance OR discount',
+    titleTokens: [],
+    excludeTokens: [],
   },
   'hidden-cameras': {
     title: 'Hidden Cameras',
-    query: 'hidden camera OR pinhole OR spy camera',
+    query: '"hidden camera" OR pinhole OR "spy camera" OR "nanny cam"',
+    titleTokens: ['hidden camera', 'spy camera', 'pinhole', 'nanny cam', 'mini camera', 'mini cam'],
+    excludeTokens: ['doorbell', 'outdoor', 'dash'],
   },
   'outdoor-cameras': {
     title: 'Outdoor Cameras',
-    query: 'outdoor camera OR solar camera OR bullet camera',
+    query: '"outdoor camera" OR "solar camera" OR "bullet camera" OR "ptz camera"',
+    titleTokens: ['outdoor', 'solar', 'bullet camera', 'ptz', 'weatherproof'],
+    excludeTokens: ['doorbell', 'dash', 'indoor'],
   },
   'indoor-cameras': {
     title: 'Indoor Cameras',
-    query: 'indoor camera OR ptz OR pan-tilt',
+    query: '"indoor camera" OR ptz OR pan-tilt',
+    titleTokens: ['indoor', 'pan-tilt', 'ptz', 'pan tilt'],
+    excludeTokens: ['outdoor', 'doorbell', 'dash'],
   },
   'doorbell-cameras': {
     title: 'Doorbell Cameras',
-    query: 'doorbell camera',
+    query: '"doorbell camera" OR "video doorbell"',
+    titleTokens: ['doorbell'],
+    excludeTokens: [],
   },
   'nanny-cameras': {
     title: 'Nanny Cameras',
-    query: 'nanny cam OR baby monitor OR pet monitor',
+    query: '"nanny cam" OR "baby monitor" OR "pet monitor"',
+    titleTokens: ['nanny', 'baby monitor', 'pet monitor'],
+    excludeTokens: [],
   },
   'dash-cameras': {
     title: 'Dash Cameras',
-    query: 'dashcam OR dash camera OR carplay',
+    query: 'dashcam OR "dash cam" OR "dash camera" OR carplay',
+    titleTokens: ['dashcam', 'dash cam', 'dash camera', 'carplay', 'car camera', 'dvr'],
+    excludeTokens: ['doorbell', 'indoor', 'outdoor'],
   },
 };
+
+function dedupeByHandle(products) {
+  const seen = new Set();
+  const out = [];
+  for (const p of products) {
+    const key = p.handle || p.id;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(p);
+  }
+  return out;
+}
+
+function filterByTitleTokens(products, includeTokens, excludeTokens) {
+  if (!includeTokens || includeTokens.length === 0) return products;
+  const inc = includeTokens.map((t) => t.toLowerCase());
+  const exc = (excludeTokens || []).map((t) => t.toLowerCase());
+  return products.filter((p) => {
+    const title = (p.title || '').toLowerCase();
+    if (exc.some((t) => title.includes(t))) return false;
+    return inc.some((t) => title.includes(t));
+  });
+}
 
 export async function generateMetadata({ params }) {
   const { handle } = await params;
@@ -176,14 +227,18 @@ async function getFallbackCollection(handle) {
   const fallback = COLLECTION_FALLBACKS[handle];
   if (!fallback) return null;
 
-  const products = await getProducts(120, fallback.query, 'CREATED_AT');
-  if (!products?.length) return null;
+  const raw = await getProducts(120, fallback.query, 'CREATED_AT');
+  if (!raw?.length) return null;
+
+  const deduped = dedupeByHandle(raw);
+  const relevant = filterByTitleTokens(deduped, fallback.titleTokens, fallback.excludeTokens);
+  const products = relevant.length >= 4 ? relevant : deduped;
 
   return {
     id: `fallback-${handle}`,
     title: fallback.title,
     handle,
-    description: `Live edit for ${fallback.title} routed through active Fashionistas products.`,
+    description: '',
     image: null,
     products,
   };
