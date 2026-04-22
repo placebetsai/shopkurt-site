@@ -1,21 +1,71 @@
 import Link from 'next/link';
 import ProductCard from '../../../components/ProductCard';
 import {
-  getAllCollectionHandles,
+  getProducts,
   getProductsByCollectionSorted,
 } from '../../../lib/shopify';
 
-export const dynamicParams = false;
+export const runtime = 'edge';
+export const dynamicParams = true;
 
-export async function generateStaticParams() {
-  try {
-    const handles = await getAllCollectionHandles();
-    return handles.map((collection) => ({ handle: collection.handle }));
-  } catch (err) {
-    console.error('Failed to generate collection params:', err.message);
-    return [];
-  }
-}
+const COLLECTION_FALLBACKS = {
+  dresses: {
+    title: 'Dresses',
+    query: 'dress',
+  },
+  tops: {
+    title: 'Tops',
+    query: 'top OR blouse OR bodysuit OR sweater OR tee OR tank',
+  },
+  bottoms: {
+    title: 'Bottoms',
+    query: 'jean OR denim OR pant OR trouser OR skirt OR short',
+  },
+  'sets-jumpsuits': {
+    title: 'Sets & Jumpsuits',
+    query: 'set OR jumpsuit OR romper OR playsuit',
+  },
+  outerwear: {
+    title: 'Outerwear',
+    query: 'jacket OR trench OR blazer OR coat',
+  },
+  bags: {
+    title: 'Bags',
+    query: 'bag OR purse OR tote OR clutch',
+  },
+  jewelry: {
+    title: 'Jewelry',
+    query: 'jewelry OR necklace OR bracelet OR earring OR ring',
+  },
+  sale: {
+    title: 'Sale',
+    query: 'sale OR clearance OR discount',
+  },
+  'hidden-cameras': {
+    title: 'Hidden Cameras',
+    query: 'hidden camera OR pinhole OR spy camera',
+  },
+  'outdoor-cameras': {
+    title: 'Outdoor Cameras',
+    query: 'outdoor camera OR solar camera OR bullet camera',
+  },
+  'indoor-cameras': {
+    title: 'Indoor Cameras',
+    query: 'indoor camera OR ptz OR pan-tilt',
+  },
+  'doorbell-cameras': {
+    title: 'Doorbell Cameras',
+    query: 'doorbell camera',
+  },
+  'nanny-cameras': {
+    title: 'Nanny Cameras',
+    query: 'nanny cam OR baby monitor OR pet monitor',
+  },
+  'dash-cameras': {
+    title: 'Dash Cameras',
+    query: 'dashcam OR dash camera OR carplay',
+  },
+};
 
 export async function generateMetadata({ params }) {
   const { handle } = await params;
@@ -122,6 +172,23 @@ function groupByProductType(products) {
     .map(([type, items]) => ({ type, slug: slugifyType(type), items }));
 }
 
+async function getFallbackCollection(handle) {
+  const fallback = COLLECTION_FALLBACKS[handle];
+  if (!fallback) return null;
+
+  const products = await getProducts(120, fallback.query, 'CREATED_AT');
+  if (!products?.length) return null;
+
+  return {
+    id: `fallback-${handle}`,
+    title: fallback.title,
+    handle,
+    description: `Live edit for ${fallback.title} routed through active Fashionistas products.`,
+    image: null,
+    products,
+  };
+}
+
 export default async function CollectionPage({ params, searchParams }) {
   const { handle } = await params;
   let collection = null;
@@ -130,6 +197,14 @@ export default async function CollectionPage({ params, searchParams }) {
     collection = await getProductsByCollectionSorted(handle, 'CREATED', true);
   } catch (err) {
     console.error('Failed to fetch collection:', err.message);
+  }
+
+  if (!collection) {
+    try {
+      collection = await getFallbackCollection(handle);
+    } catch (err) {
+      console.error('Failed to fetch fallback collection:', err.message);
+    }
   }
 
   if (!collection) {
