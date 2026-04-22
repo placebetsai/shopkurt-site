@@ -180,7 +180,7 @@ export default async function CollectionPage({ params, searchParams }) {
           </div>
 
           <div className="fashionistas-collection-visual">
-            {collection.image?.url ? (
+            {collection.image?.url && !/rn-image_picker_lib_temp|image_picker_lib_temp|placeholder/i.test(collection.image.url) ? (
               <img
                 src={collection.image.url}
                 alt={collection.image.altText || collection.title}
