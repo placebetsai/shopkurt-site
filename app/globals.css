@@ -116,15 +116,15 @@ img {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(180deg, rgba(14, 12, 11, 0.985), rgba(9, 8, 7, 0.985));
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 14px 0;
   min-width: 200px;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.18s ease, visibility 0.18s ease;
   z-index: 200;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.55);
   margin-top: 10px;
 }
 
@@ -142,16 +142,18 @@ img {
 
 .nav-dropdown li a {
   display: block;
-  padding: 8px 22px;
+  padding: 10px 22px;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text, #111);
+  color: #e5ded2;
   white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .nav-dropdown li a:hover {
-  background: #f7f5f1;
+  background: rgba(201, 169, 110, 0.08);
+  color: #c9a96e;
 }
 
 .nav-center a {

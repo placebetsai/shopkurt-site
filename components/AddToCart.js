@@ -36,10 +36,11 @@ export default function AddToCart({ variantId, title, price, image }) {
   }
 
   function buyNow() {
-    // Route through fashionistas.ai — Cloudflare Worker proxies /cart/* to
-    // shop.fashionistas.ai (Shopify primary) so the URL bar stays fashionistas.ai
-    // throughout the checkout flow.
-    window.location.href = `https://fashionistas.ai/cart/${variantId}:1`;
+    // Shopify primary domain is fashionistas.ai, so a standard cart permalink
+    // loops back here and 404s. Hitting myshopify.com directly with ?_fd=0
+    // tells Shopify to stop forward-domain redirecting so the cart actually
+    // loads and continues into Shopify's checkout.
+    window.location.href = `https://js0hy0-ux.myshopify.com/cart/${variantId}:1?_fd=0`;
   }
 
   return (
