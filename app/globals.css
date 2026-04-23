@@ -78,7 +78,8 @@ img {
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   width: 100%;
-  gap: clamp(10px, 1.2vw, 22px);
+  gap: clamp(14px, 1.8vw, 32px);
+  max-width: min(1600px, calc(100vw - 32px));
 }
 
 .nav-logo {
@@ -98,7 +99,7 @@ img {
 
 .nav-center {
   display: flex;
-  gap: clamp(4px, 0.55vw, 12px);
+  gap: clamp(8px, 0.9vw, 20px);
   list-style: none;
   align-items: center;
   flex: 1 1 auto;

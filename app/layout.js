@@ -24,6 +24,9 @@ export const metadata = {
     title: 'Fashionistas | Shoes, Accessories & Beauty',
     description: 'Shop shoes, bags, jewelry, and beauty. New drops weekly. Free shipping over $50.',
   },
+  other: {
+    'og:image:secure_url': 'https://fashionistas.ai/opengraph-image',
+  },
   icons: {
     icon: '/favicon.svg',
   },
