@@ -2406,3 +2406,96 @@ img {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* ── Trending ticker (homepage) ─────────────────────────────────────────── */
+.fashionistas-trend-ticker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  height: 56px;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(90deg, rgba(12, 10, 8, 0.95) 0%, rgba(20, 17, 14, 0.95) 100%);
+}
+.fashionistas-trend-ticker-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  height: 100%;
+  background: linear-gradient(90deg, #c8764a, #8a4c28);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+  z-index: 2;
+}
+.fashionistas-trend-ticker-badge .live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3cff6a;
+  box-shadow: 0 0 6px #3cff6a;
+  animation: trendLiveDot 1.4s ease-in-out infinite;
+}
+@keyframes trendLiveDot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.fashionistas-trend-ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  white-space: nowrap;
+  padding-left: 28px;
+  animation: trendTickerScroll 60s linear infinite;
+  will-change: transform;
+}
+.fashionistas-trend-ticker:hover .fashionistas-trend-ticker-track {
+  animation-play-state: paused;
+}
+@keyframes trendTickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.fashionistas-trend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f3efe8;
+  font-size: 13px;
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+.fashionistas-trend-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+.fashionistas-trend-item img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #111;
+  flex-shrink: 0;
+}
+.fashionistas-trend-title {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+.fashionistas-trend-price {
+  font-weight: 800;
+  color: #c8764a;
+  margin-left: 4px;
+}

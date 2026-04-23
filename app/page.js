@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ProductCard from '../components/ProductCard';
+import TrendingTicker from '../components/TrendingTicker';
 import { getProducts, getCollections, formatPrice } from '../lib/shopify';
 import { buildCollectionPromos, buildMerchSections, getMerchandiseableProducts } from '../lib/merchandising';
 
@@ -198,6 +199,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <TrendingTicker />
       <section className="fashionistas-topline">
         <div className="container fashionistas-topline-inner">
           <div className="fashionistas-topline-copy">
