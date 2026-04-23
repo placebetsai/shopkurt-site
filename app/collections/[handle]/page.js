@@ -129,16 +129,27 @@ export async function generateMetadata({ params }) {
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (char) => char.toUpperCase());
 
+  const url = `https://fashionistas.ai/collections/${handle}`;
+  const description = `Shop the ${title} collection at Fashionistas. New styles, weekly drops, free shipping over $50.`;
+  const ogImage = `https://fashionistas.ai/opengraph-image`;
+
   return {
     title: `${title} | Fashionistas`,
-    description: `Shop the ${title} collection at Fashionistas. New styles, weekly drops, and free shipping over $50.`,
-    alternates: {
-      canonical: `https://fashionistas.ai/collections/${handle}`,
-    },
+    description,
+    alternates: { canonical: url },
     openGraph: {
       title: `${title} | Fashionistas`,
-      description: `Shop the ${title} collection at Fashionistas.`,
-      url: `https://fashionistas.ai/collections/${handle}`,
+      description,
+      url,
+      siteName: 'Fashionistas',
+      type: 'website',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `${title} — Fashionistas.ai` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Fashionistas`,
+      description,
+      images: [ogImage],
     },
   };
 }
