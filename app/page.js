@@ -281,10 +281,23 @@ export default async function HomePage() {
       >
         <div className="container fashionistas-hero-grid">
           <div className="fashionistas-hero-copy">
-            <p className="fashionistas-kicker">Fashionistas</p>
-            <h1>Shoes, accessories, and everyday fashion.</h1>
+            <p className="fashionistas-kicker"><CatchPhrase phrases={["Fashionistas", "Trending this week", "Fresh drops daily", "Editor's picks", "Viral right now"]} interval={3800} /></p>
+            <h1>
+              <CatchPhrase phrases={[
+                "Shoes, accessories, and everyday fashion.",
+                "The looks going viral this week.",
+                "Real styles for real moments.",
+                "Trending drops before they sell out.",
+                "Dressed for wherever life goes.",
+              ]} interval={5000} className="fashionistas-h1-rotator" />
+            </h1>
             <p className="fashionistas-lead">
-              Shop the latest drops in shoes, bags, jewelry, and beauty — hand-picked, updated weekly.
+              <CatchPhrase phrases={[
+                "Shop the latest drops in shoes, bags, jewelry, and beauty — hand-picked, updated weekly.",
+                "New styles added every week. Free shipping over $50. No guessing.",
+                "The picks going viral on TikTok, sized and shipped from US warehouses.",
+                "Editor-curated shoes, bags, and jewelry. Restocked daily.",
+              ]} interval={6000} className="fashionistas-lead-rotator" />
             </p>
             <div className="fashionistas-hero-actions">
               <Link href="/collections" className="btn btn-primary">
@@ -398,8 +411,10 @@ export default async function HomePage() {
       <section className="section fashionistas-tile-section" style={{ paddingBottom: 0 }}>
         <div className="container">
           <div className="fashionistas-section-head">
-            <p className="fashionistas-kicker">Shop By Category</p>
-            <h2 className="fashionistas-display-title">Everything, sorted.</h2>
+            <p className="fashionistas-kicker"><CatchPhrase phrases={["Shop By Category", "Browse The Aisles", "Find Your Fit", "Explore The Drops"]} interval={4200} /></p>
+            <h2 className="fashionistas-display-title">
+              <CatchPhrase phrases={["Everything, sorted.", "Shop your way.", "Every look, one click.", "Find your category."]} interval={5000} />
+            </h2>
           </div>
           <div className="fashionistas-tile-grid">
             {categoryTilesResolved.map((tile) => {
@@ -427,8 +442,10 @@ export default async function HomePage() {
         <section className="section fashionistas-merch-section">
           <div className="container">
             <div className="fashionistas-section-head">
-              <p className="fashionistas-kicker">Live Collections</p>
-              <h2 className="fashionistas-display-title">Browse by category.</h2>
+              <p className="fashionistas-kicker"><CatchPhrase phrases={["Live Collections", "Top-Rated Picks", "Editor's Shelves", "Best Sellers Here"]} interval={4200} /></p>
+              <h2 className="fashionistas-display-title">
+                <CatchPhrase phrases={["Browse by category.", "Find your next favorite.", "Shop what moves you.", "Every category, curated."]} interval={5000} />
+              </h2>
             </div>
             <div className="fashionistas-category-grid">
               {visibleSections.map((section) => {
@@ -477,8 +494,10 @@ export default async function HomePage() {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">
           <div className="fashionistas-section-head">
-                <p className="fashionistas-kicker">Shop By Occasion</p>
-            <h2 className="fashionistas-display-title">Built for the moment.</h2>
+                <p className="fashionistas-kicker"><CatchPhrase phrases={["Shop By Occasion", "For The Moment", "Outfit The Moment", "Built For You"]} interval={4200} /></p>
+            <h2 className="fashionistas-display-title">
+              <CatchPhrase phrases={["Built for the moment.", "Dressed for wherever.", "Looks with a purpose.", "Ready when you are."]} interval={5000} />
+            </h2>
           </div>
           <div className="fashionistas-intent-grid">
             {OCCASION_LANES.map((item) => (
@@ -507,8 +526,10 @@ export default async function HomePage() {
       >
         <div className="container">
           <div className="fashionistas-editorial-banner-copy">
-            <p className="fashionistas-kicker">New Season</p>
-            <h2 className="fashionistas-display-title">Built to be seen.</h2>
+            <p className="fashionistas-kicker"><CatchPhrase phrases={["New Season", "Fresh Arrivals", "Just Landed", "Straight Off The Drop"]} interval={4200} /></p>
+            <h2 className="fashionistas-display-title">
+              <CatchPhrase phrases={["Built to be seen.", "Made to stand out.", "Designed to turn heads.", "Yours to command."]} interval={5000} />
+            </h2>
             <p className="fashionistas-lead">
               Shoes that anchor the outfit, accessories that finish it, beauty that holds all day.
             </p>
@@ -522,8 +543,10 @@ export default async function HomePage() {
       <section className="section fashionistas-aesthetic-section" style={{ paddingTop: 0 }}>
         <div className="container">
           <div className="fashionistas-section-head">
-            <p className="fashionistas-kicker">Shop By Aesthetic</p>
-            <h2 className="fashionistas-display-title">Find your vibe.</h2>
+            <p className="fashionistas-kicker"><CatchPhrase phrases={["Shop By Aesthetic", "By The Vibe", "Style By Mood", "Your Aesthetic"]} interval={4200} /></p>
+            <h2 className="fashionistas-display-title">
+              <CatchPhrase phrases={["Find your vibe.", "Own your aesthetic.", "Dress your mood.", "Style that's you."]} interval={5000} />
+            </h2>
           </div>
           <div className="fashionistas-aesthetic-grid">
             {aestheticTilesResolved.map((tile) => (
@@ -571,8 +594,10 @@ export default async function HomePage() {
         <section className="section" style={{ paddingTop: 0 }}>
           <div className="container">
             <div className="fashionistas-section-head">
-              <p className="fashionistas-kicker">Best Sellers</p>
-              <h2 className="fashionistas-display-title">What&rsquo;s moving right now.</h2>
+              <p className="fashionistas-kicker"><CatchPhrase phrases={["Best Sellers", "Top Sellers", "Cult Favorites", "Flying Off Shelves"]} interval={4200} /></p>
+              <h2 className="fashionistas-display-title">
+                <CatchPhrase phrases={["What's moving right now.", "The hottest picks this week.", "Can't keep these in stock.", "What everyone's buying."]} interval={5000} />
+              </h2>
             </div>
             <div className="product-grid">
               {trendingProducts.map((product) => (
@@ -591,8 +616,10 @@ export default async function HomePage() {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">
           <div className="fashionistas-section-head">
-            <p className="fashionistas-kicker">New Arrivals</p>
-            <h2 className="fashionistas-display-title">Just in.</h2>
+            <p className="fashionistas-kicker"><CatchPhrase phrases={["New Arrivals", "Fresh Drops", "This Week's Drop", "New In Today"]} interval={4200} /></p>
+            <h2 className="fashionistas-display-title">
+              <CatchPhrase phrases={["Just in.", "Hot off the press.", "First look.", "Straight to the shelf."]} interval={5000} />
+            </h2>
           </div>
 
           {justInProducts.length > 0 ? (
@@ -621,8 +648,10 @@ export default async function HomePage() {
         <div className="container">
           <div className="fashionistas-newsletter">
             <div className="fashionistas-newsletter-copy">
-              <p className="fashionistas-kicker">Get 15% off</p>
-              <h2 className="fashionistas-display-title">Join the list.</h2>
+              <p className="fashionistas-kicker"><CatchPhrase phrases={["Get 15% off", "Insider Access", "First Dibs", "VIP Perks"]} interval={4200} /></p>
+              <h2 className="fashionistas-display-title">
+                <CatchPhrase phrases={["Join the list.", "Be the first to know.", "Get early access.", "Unlock VIP drops."]} interval={5000} />
+              </h2>
               <p className="fashionistas-lead">
                 New drops, restocks, and editor picks — straight to your inbox.
               </p>
