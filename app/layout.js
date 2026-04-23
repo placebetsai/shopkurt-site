@@ -2,6 +2,7 @@ import './globals.css';
 import Script from 'next/script';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
+import TrendingTicker from '../components/TrendingTicker';
 
 export const metadata = {
   title: 'Fashionistas | Shoes, Accessories & Beauty',
@@ -79,6 +80,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Navbar />
+        <TrendingTicker />
 
         <main>{children}</main>
 
