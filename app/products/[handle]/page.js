@@ -1,7 +1,6 @@
 import {
   getProduct,
   getProducts,
-  getAllProductHandles,
   formatPrice,
   getVariantId,
 } from '../../../lib/shopify';
@@ -9,15 +8,8 @@ import Link from 'next/link';
 import ProductCard from '../../../components/ProductCard';
 import VariantSelector from '../../../components/VariantSelector';
 
-export async function generateStaticParams() {
-  try {
-    const handles = await getAllProductHandles();
-    return handles.map((product) => ({ handle: product.handle }));
-  } catch (err) {
-    console.error('Failed to generate product params:', err.message);
-    return [];
-  }
-}
+export const runtime = 'edge';
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }) {
   const { handle } = await params;
