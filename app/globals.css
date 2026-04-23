@@ -148,11 +148,12 @@ img {
 
 .nav-dropdown li a {
   display: block;
-  padding: 10px 22px;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  padding: 11px 24px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #e5ded2;
+  color: #f0ece6;
   white-space: nowrap;
   transition: background 0.15s ease, color 0.15s ease;
 }
@@ -798,30 +799,31 @@ img {
 .fashionistas-category-card h3,
 .fashionistas-intent-card h3 {
   font-family: var(--font-display);
-  font-size: 2.15rem;
-  font-weight: 600;
-  line-height: 1;
+  font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.02;
   color: #ffffff;
-  margin-bottom: 14px;
-  letter-spacing: 0.01em;
+  margin-bottom: 16px;
+  letter-spacing: 0.005em;
 }
 
 .fashionistas-category-card span,
 .fashionistas-intent-card p {
   display: block;
-  color: #d8d2c8;
-  font-size: 0.95rem;
+  color: #e5ded2;
+  font-size: clamp(1rem, 1.1vw, 1.08rem);
   font-weight: 500;
-  line-height: 1.7;
-  max-width: 32ch;
+  line-height: 1.6;
+  max-width: 34ch;
 }
 
 .fashionistas-category-card strong {
   display: inline-block;
   margin-top: 22px;
   color: var(--accent);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
