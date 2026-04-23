@@ -2291,6 +2291,23 @@ img {
   background-size: cover;
   background-position: center;
   transition: transform 0.5s ease;
+  overflow: hidden;
+}
+.fashionistas-tile-media-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.fashionistas-tile-sub {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #f2ede4;
+  letter-spacing: 0.18em;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
 }
 
 .fashionistas-tile-card:hover .fashionistas-tile-media {

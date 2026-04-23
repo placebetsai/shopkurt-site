@@ -52,51 +52,99 @@ const CATEGORY_IMAGES = {
 // 9-tile category grid to sit BEFORE the Shopify-driven "Browse by category" row.
 // Links target /collections/<slug>; if a collection doesn't exist the collection
 // page should render a graceful empty state (handled separately).
+const BEST_PHRASES = [
+  "The best picks",
+  "Our #1 category",
+  "Most-loved here",
+  "Trending today",
+  "Editor obsessed",
+  "Customer favorite",
+  "Fly off shelves",
+  "Can't keep in stock",
+  "Seen on TikTok",
+  "Rated 5★",
+];
+
 const CATEGORY_TILES = [
   {
     label: 'Dresses',
     href: '/collections/dresses',
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200&q=80',
+      'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=1200&q=80',
+      'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1200&q=80',
+      'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1200&q=80',
+    ],
   },
   {
     label: 'Tops',
     href: '/collections/tops',
-    image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1200&q=80',
+      'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1200&q=80',
+      'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=1200&q=80',
+      'https://images.unsplash.com/photo-1564257577-2d3ee8740faa?w=1200&q=80',
+    ],
   },
   {
     label: 'Bottoms',
     href: '/collections/bottoms',
-    image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80',
+      'https://images.unsplash.com/photo-1473966968600-fa801b3a0915?w=1200&q=80',
+      'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=1200&q=80',
+      'https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=1200&q=80',
+    ],
   },
   {
     label: 'Sets & Jumpsuits',
     href: '/collections/sets-jumpsuits',
-    image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1200&q=80',
-  },
-  {
-    label: 'Outerwear',
-    href: '/collections/outerwear',
-    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1200&q=80',
+      'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80',
+      'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1200&q=80',
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200&q=80',
+    ],
   },
   {
     label: 'Shoes',
     href: '/collections/fashion',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=80',
+      'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=1200&q=80',
+      'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1200&q=80',
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&q=80',
+    ],
   },
   {
     label: 'Bags',
     href: '/collections/bags',
-    image: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=1200&q=80',
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=1200&q=80',
+      'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=1200&q=80',
+      'https://images.unsplash.com/photo-1564422170194-896b89110ef8?w=1200&q=80',
+    ],
   },
   {
     label: 'Jewelry',
     href: '/collections/jewelry',
-    image: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=1200&q=80',
+      'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&q=80',
+      'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80',
+      'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&q=80',
+    ],
   },
   {
     label: 'Sale',
     href: '/collections/sale',
-    image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=80',
+      'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200&q=80',
+      'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&q=80',
+      'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=1200&q=80',
+    ],
   },
 ];
 
@@ -354,18 +402,23 @@ export default async function HomePage() {
             <h2 className="fashionistas-display-title">Everything, sorted.</h2>
           </div>
           <div className="fashionistas-tile-grid">
-            {categoryTilesResolved.map((tile) => (
-              <Link key={tile.label} href={tile.href} className="fashionistas-tile-card">
-                <div
-                  className="fashionistas-tile-media"
-                  style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%), url('${tile.image}')` }}
-                  aria-hidden="true"
-                />
-                <div className="fashionistas-tile-label">
-                  <span>{tile.label}</span>
-                </div>
-              </Link>
-            ))}
+            {categoryTilesResolved.map((tile) => {
+              const tileImages = tile.images && tile.images.length
+                ? tile.images.map((url) => ({ url, alt: tile.label }))
+                : tile.image ? [{ url: tile.image, alt: tile.label }] : [];
+              return (
+                <Link key={tile.label} href={tile.href} className="fashionistas-tile-card">
+                  <div className="fashionistas-tile-media" aria-hidden="true">
+                    <RotatingCategoryMedia images={tileImages} interval={4500} />
+                    <div className="fashionistas-tile-media-shade" />
+                  </div>
+                  <div className="fashionistas-tile-label">
+                    <span>{tile.label}</span>
+                    <CatchPhrase phrases={BEST_PHRASES} interval={4000} className="fashionistas-tile-sub" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

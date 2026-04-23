@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 
-// Commerce-lean rotating phrases. Short, specific, urgency + trend signal.
-// No fluff. Each < 40 chars so it fits the card label slot without wrapping.
+// Smooth cross-fade carousel for short phrases. Both current and next phrase
+// render stacked; opacity transitions over 500ms for smooth swap.
 const PHRASES = [
   "Trending this week",
   "Seen on TikTok",
@@ -23,29 +23,35 @@ const PHRASES = [
 
 export default function CatchPhrase({ phrases = PHRASES, interval = 3200, className = "" }) {
   const [idx, setIdx] = useState(0);
-  const [fade, setFade] = useState(true);
 
   useEffect(() => {
-    const t = setInterval(() => {
-      setFade(false);
-      setTimeout(() => {
-        setIdx((i) => (i + 1) % phrases.length);
-        setFade(true);
-      }, 220);
-    }, interval);
+    if (!phrases || phrases.length < 2) return;
+    const t = setInterval(() => setIdx((i) => (i + 1) % phrases.length), interval);
     return () => clearInterval(t);
-  }, [phrases.length, interval]);
+  }, [phrases?.length, interval]);
+
+  if (!phrases || phrases.length === 0) return null;
 
   return (
     <span
       className={`fashionistas-catchphrase ${className}`}
-      style={{
-        opacity: fade ? 1 : 0,
-        transition: "opacity 0.22s ease",
-        display: "inline-block",
-      }}
+      style={{ position: "relative", display: "inline-block", verticalAlign: "baseline", minHeight: "1.2em" }}
     >
-      {phrases[idx]}
+      {phrases.map((p, i) => (
+        <span
+          key={i}
+          style={{
+            position: i === idx ? "relative" : "absolute",
+            left: 0,
+            top: 0,
+            opacity: i === idx ? 1 : 0,
+            transition: "opacity 0.5s ease-in-out",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {p}
+        </span>
+      ))}
     </span>
   );
 }
