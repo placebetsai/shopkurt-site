@@ -28,20 +28,34 @@ export async function generateMetadata({ params }) {
   const image = product.images.edges[0]?.node;
   const url = `https://fashionistas.ai/products/${handle}`;
 
+  const description =
+    product.description?.slice(0, 200) ||
+    `Shop ${product.title} at Fashionistas.ai. Curated fashion, fast shipping.`;
+  const imageList = image
+    ? [{ url: image.url, width: image.width || 800, height: image.height || 800, alt: product.title }]
+    : [{ url: 'https://fashionistas.ai/opengraph-image', width: 1200, height: 630, alt: 'Fashionistas.ai' }];
+
   return {
     title: `${product.title} | Fashionistas.ai`,
-    description:
-      product.description?.slice(0, 160) ||
-      `Shop ${product.title} at Fashionistas.ai. Curated fashion, fast shipping.`,
-    alternates: {
-      canonical: url,
-    },
+    description,
+    alternates: { canonical: url },
     openGraph: {
       title: product.title,
-      description: product.description?.slice(0, 160) || product.title,
-      images: image ? [{ url: image.url, width: image.width, height: image.height }] : [],
+      description,
+      images: imageList,
       type: 'website',
       url,
+      siteName: 'Fashionistas',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: product.title,
+      description,
+      images: imageList.map((i) => i.url),
+    },
+    other: {
+      'product:price:amount': price?.amount,
+      'product:price:currency': price?.currencyCode || 'USD',
     },
   };
 }
