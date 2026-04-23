@@ -10,6 +10,11 @@ import Link from "next/link";
 // filter) or /products?aesthetic=<slug>. No dead links from this nav.
 const NAV_LINKS = [
   {
+    label: "Home",
+    href: "/",
+    children: null,
+  },
+  {
     label: "New In",
     href: "/collections/trending-items",
     children: [
