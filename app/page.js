@@ -444,7 +444,7 @@ export default async function HomePage() {
               Shoes that anchor the outfit, accessories that finish it, beauty that holds all day.
             </p>
             <Link href="/collections/fashion" className="btn btn-primary">
-              Shop The Edit
+              Shop The Collection
             </Link>
           </div>
         </div>
@@ -485,7 +485,7 @@ export default async function HomePage() {
                   {sections[0].description}
                 </p>
                 <Link href={`/collections/${sections[0].slug}`} className="btn btn-outline">
-                  Shop The Edit
+                  Shop The Collection
                 </Link>
               </div>
               <div className="fashionistas-editorial-grid">

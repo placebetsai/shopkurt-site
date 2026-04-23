@@ -186,7 +186,7 @@ function getCollectionLead(handle, title) {
     return 'This week’s most-shopped styles.';
   }
 
-  return `Shop the ${title} edit.`;
+  return `Shop the ${title} collection.`;
 }
 
 function sanitizeCollectionDescription(description) {
