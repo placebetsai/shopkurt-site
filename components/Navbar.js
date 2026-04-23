@@ -128,9 +128,44 @@ const NAV_LINKS = [
   },
 ];
 
-export default function Navbar() {
+export default function Navbar({ availableCategories = { productTypes: [], collectionSlugs: [], tags: [] } }) {
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+
+  const availableTypes = new Set((availableCategories.productTypes || []).map((t) => t.toLowerCase().trim()));
+  const availableCollections = new Set((availableCategories.collectionSlugs || []).map((s) => s.toLowerCase().trim()));
+  const availableTags = new Set((availableCategories.tags || []).map((t) => t.toLowerCase().trim()));
+
+  // Hide dead links: a child with ?category=X drops off if no product has productType X
+  // and no product carries tag X. A /collections/Y top-level link drops if slug Y has no products.
+  function hrefHasContent(href) {
+    if (!href) return true;
+    // No filter: the landing page itself is always content
+    const qsMatch = href.match(/\?category=([^&]+)/);
+    if (qsMatch) {
+      const val = decodeURIComponent(qsMatch[1].replace(/\+/g, " ")).toLowerCase().trim();
+      return availableTypes.has(val) || availableTags.has(val) || val === "all";
+    }
+    const collMatch = href.match(/^\/collections\/([a-z0-9-]+)/i);
+    if (collMatch) {
+      return availableCollections.has(collMatch[1].toLowerCase()) ||
+             availableCollections.size === 0; // fallback: if we failed to load counts, show everything
+    }
+    return true;
+  }
+
+  function filterLinks(entries) {
+    if (availableTypes.size === 0 && availableCollections.size === 0) return entries;
+    return entries
+      .map((l) => {
+        if (!l.children) return hrefHasContent(l.href) ? l : null;
+        const kept = l.children.filter((c) => hrefHasContent(c.href));
+        if (kept.length === 0 && !hrefHasContent(l.href)) return null;
+        return { ...l, children: kept.length ? kept : null };
+      })
+      .filter(Boolean);
+  }
+  const VISIBLE_LINKS = filterLinks(NAV_LINKS);
 
   return (
     <nav className="navbar">
@@ -140,7 +175,7 @@ export default function Navbar() {
         </Link>
 
         <ul className="nav-center">
-          {NAV_LINKS.map((link) => (
+          {VISIBLE_LINKS.map((link) => (
             <li
               key={link.label}
               className={`nav-item ${link.children ? "nav-item-has-children" : ""} ${link.label === "Sale" ? "nav-item-sale" : ""}`}
@@ -205,7 +240,7 @@ export default function Navbar() {
 
       {open && (
         <div className="mobile-menu">
-          {NAV_LINKS.map((link) => (
+          {VISIBLE_LINKS.map((link) => (
             <Link key={link.label} href={link.href} onClick={() => setOpen(false)}>
               {link.label}
             </Link>

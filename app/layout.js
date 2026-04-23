@@ -3,6 +3,7 @@ import Script from 'next/script';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import TrendingTicker from '../components/TrendingTicker';
+import { getAvailableCategoryKeys } from '../lib/shopify';
 
 export const metadata = {
   title: 'Fashionistas | Shoes, Accessories & Beauty',
@@ -32,7 +33,12 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  let availableCategories = { productTypes: [], collectionSlugs: [], tags: [] };
+  try {
+    availableCategories = await getAvailableCategoryKeys();
+  } catch {}
+
   const orgJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -82,7 +88,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <Navbar />
+        <Navbar availableCategories={availableCategories} />
         <TrendingTicker />
 
         <main>{children}</main>
