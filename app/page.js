@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ProductCard from '../components/ProductCard';
+import CatchPhrase from '../components/CatchPhrase';
 import { getProducts, getCollections, formatPrice } from '../lib/shopify';
 import { buildCollectionPromos, buildMerchSections, getMerchandiseableProducts } from '../lib/merchandising';
 
@@ -389,12 +390,12 @@ export default async function HomePage() {
                     )}
                   </div>
                   <div className="fashionistas-category-copy">
-                  <p>{section.eyebrow}</p>
+                  <p className="fashionistas-catchphrase-line"><CatchPhrase /></p>
                   <h3>{section.title}</h3>
-                  <span>{section.description}</span>
+                  <span>{section.featuredProductTitle ? `Top right now: ${section.featuredProductTitle}` : section.description}</span>
                   <div className="fashionistas-category-footer">
                     <strong>{section.total} styles</strong>
-                    <em>{section.featuredProductTitle || 'Shop now'}</em>
+                    <em>Shop now →</em>
                   </div>
                   </div>
                 </Link>

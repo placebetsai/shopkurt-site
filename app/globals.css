@@ -827,6 +827,18 @@ img {
   text-transform: uppercase;
 }
 
+.fashionistas-catchphrase-line {
+  margin: 0 0 10px 0;
+  min-height: 1.2em;
+}
+.fashionistas-catchphrase {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
 .fashionistas-category-card {
   border-color: color-mix(in srgb, var(--fashionistas-accent, var(--accent)) 28%, rgba(255,255,255,0.08));
 }
