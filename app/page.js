@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import ProductCard from '../components/ProductCard';
 import CatchPhrase from '../components/CatchPhrase';
+import RotatingCategoryMedia from '../components/RotatingCategoryMedia';
 import { getProducts, getCollections, formatPrice } from '../lib/shopify';
 import { buildCollectionPromos, buildMerchSections, getMerchandiseableProducts } from '../lib/merchandising';
 
@@ -174,9 +175,21 @@ export default async function HomePage() {
   const displayProducts = merchProducts.length >= 8 ? merchProducts : products;
   const heroProducts = displayProducts.slice(0, 3);
   const heroIds = new Set(heroProducts.map((p) => p.id));
-  const sections = buildMerchSections(displayProducts, 4);
+  const sections = buildMerchSections(displayProducts, 6);
+  const productsBySectionSlug = new Map(sections.map((s) => [s.slug, s.products]));
   const allPromos = buildCollectionPromos(displayProducts);
-  const visibleSections = allPromos.filter((promo) => liveHandles.has(promo.slug));
+  const visibleSections = allPromos
+    .filter((promo) => liveHandles.has(promo.slug))
+    .map((promo) => ({
+      ...promo,
+      rotatingImages: (productsBySectionSlug.get(promo.slug) || [])
+        .map((p) => {
+          const img = p?.images?.edges?.[0]?.node;
+          return img ? { url: img.url, alt: img.altText || p.title, title: p.title } : null;
+        })
+        .filter(Boolean)
+        .slice(0, 5),
+    }));
   const justInProducts = displayProducts.filter((p) => !heroIds.has(p.id)).slice(0, 16);
   const trendingProducts = (bestSellers || []).filter((p) => !heroIds.has(p.id)).slice(0, 8);
 
@@ -377,7 +390,9 @@ export default async function HomePage() {
                   style={{ '--fashionistas-accent': section.accent }}
                 >
                   <div className="fashionistas-category-media">
-                    {mediaImage ? (
+                    {section.rotatingImages && section.rotatingImages.length >= 2 ? (
+                      <RotatingCategoryMedia images={section.rotatingImages} interval={4500} />
+                    ) : mediaImage ? (
                       <img
                         src={mediaImage}
                         alt={mediaAlt}
