@@ -2503,3 +2503,46 @@ img {
   color: #c8764a;
   margin-left: 4px;
 }
+
+/* ── Nav search (Fashionistas) ─────────────────────────────────────────── */
+.nav-search {
+  display: none;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 2px 2px 2px 14px;
+  transition: border-color 0.15s, background 0.15s;
+  max-width: 280px;
+}
+@media (min-width: 960px) {
+  .nav-search { display: inline-flex; }
+}
+.nav-search:focus-within {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(200, 118, 74, 0.5);
+}
+.nav-search input {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: #f3efe8;
+  font-size: 13px;
+  min-width: 140px;
+  max-width: 200px;
+  padding: 6px 6px 6px 0;
+}
+.nav-search input::placeholder { color: #8a8580; }
+.nav-search button {
+  background: rgba(255, 255, 255, 0.06);
+  border: 0;
+  border-radius: 999px;
+  width: 32px;
+  height: 32px;
+  color: #e6e0d8;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-search button:hover { background: #c8764a; color: #0a0a0a; }

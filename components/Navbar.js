@@ -166,6 +166,15 @@ export default function Navbar() {
         </ul>
 
         <div className="nav-right">
+          <form action="/products" method="get" className="nav-search" role="search">
+            <input type="search" name="q" placeholder="Search products…" aria-label="Search products" autoComplete="off" />
+            <button type="submit" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </button>
+          </form>
           <Link href="/cart" className="nav-cart" aria-label="Shopping bag">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />

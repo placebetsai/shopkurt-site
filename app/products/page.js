@@ -70,6 +70,7 @@ export default async function ProductsPage({ searchParams }) {
   const params = await searchParams;
   const categoryRaw = typeof params?.category === 'string' ? params.category : '';
   const aestheticRaw = typeof params?.aesthetic === 'string' ? params.aesthetic.toLowerCase() : '';
+  const qRaw = typeof params?.q === 'string' ? params.q.trim() : '';
 
   let products = [];
 
@@ -86,7 +87,17 @@ export default async function ProductsPage({ searchParams }) {
   let filterEyebrow = 'Shop All';
 
   let filterHadNoMatches = false;
-  if (categoryRaw) {
+  if (qRaw) {
+    const needle = qRaw.toLowerCase();
+    const filtered = displayProducts.filter((p) => {
+      const hay = `${p.title || ''} ${p.productType || ''} ${(p.tags || []).join(' ')}`.toLowerCase();
+      return hay.includes(needle);
+    });
+    if (filtered.length > 0) displayProducts = filtered;
+    else { displayProducts = []; filterHadNoMatches = true; }
+    filterLabel = `"${qRaw}"`;
+    filterEyebrow = 'Search';
+  } else if (categoryRaw) {
     const tokens = CATEGORY_TOKENS[categoryRaw] || [categoryRaw.toLowerCase()];
     const filtered = filterByTokens(displayProducts, tokens);
     if (filtered.length > 0) displayProducts = filtered;
