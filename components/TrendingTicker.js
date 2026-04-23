@@ -1,5 +1,18 @@
 import Link from 'next/link';
+import CatchPhrase from './CatchPhrase';
 import { getProducts, formatPrice } from '../lib/shopify';
+
+const TICKER_PHRASES = [
+  'Trending now',
+  'Going viral',
+  'Flying off shelves',
+  'Hot right now',
+  "Editor's radar",
+  'Cult favorites',
+  'Most-loved',
+  'Top picks today',
+  'Selling fast',
+];
 
 // Server component — fetches live trending products on every request (edge runtime
 // on the parent page revalidates via its own settings). Renders a continuously
@@ -26,7 +39,7 @@ export default async function TrendingTicker() {
     <div className="fashionistas-trend-ticker" aria-label="Trending products right now">
       <div className="fashionistas-trend-ticker-badge">
         <span className="live-dot" />
-        <span>Trending now</span>
+        <CatchPhrase phrases={TICKER_PHRASES} interval={2800} className="fashionistas-trend-ticker-label" />
       </div>
       <div className="fashionistas-trend-ticker-track">
         {loop.map((p, i) => {
