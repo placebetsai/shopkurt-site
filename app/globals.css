@@ -2110,12 +2110,17 @@ img {
   .fashionistas-hero-grid,
   .fashionistas-collection-hero,
   .fashionistas-band,
-  .fashionistas-category-grid,
   .fashionistas-intent-grid,
   .fashionistas-editorial,
   .fashionistas-collections-grid,
   .fashionistas-collection-tile {
     grid-template-columns: 1fr;
+  }
+  /* Category grid stays 2-col on phones — was "photos stacked, one at a time"
+     at 1-col with 350px-wide card + full-height images. Now side-by-side. */
+  .fashionistas-category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .fashionistas-hero-stats {
@@ -2137,8 +2142,9 @@ img {
   }
 
   .fashionistas-hero-copy h1 {
-    font-size: clamp(2.6rem, 12vw, 4.3rem);
+    font-size: clamp(1.75rem, 7.5vw, 2.4rem);
     max-width: none;
+    line-height: 1.1;
   }
 
   .fashionistas-display-title {
@@ -2151,14 +2157,30 @@ img {
     min-height: auto;
   }
 
-  /* On mobile, category card images were full-viewport tall — user can't scroll
-     past to see titles. Cap the image aspect ratio so hero image is ~45% of card. */
+  /* Mobile: 2-col grid means each card is ~190px wide. Tighter image + tighter
+     copy padding. The h3 and eyebrow already use clamp() so they auto-shrink. */
   .fashionistas-category-media {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 3;
   }
 
   .fashionistas-category-copy {
-    padding: 20px 18px 22px;
+    padding: 12px 12px 14px;
+  }
+  .fashionistas-category-card h3,
+  .fashionistas-intent-card h3 {
+    font-size: clamp(1rem, 4.5vw, 1.4rem);
+  }
+  .fashionistas-category-card span,
+  .fashionistas-intent-card p {
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+  .fashionistas-category-card strong,
+  .fashionistas-catchphrase {
+    font-size: 0.68rem;
+  }
+  .fashionistas-category-footer {
+    margin-top: 10px;
   }
 
   .fashionistas-category-footer {
