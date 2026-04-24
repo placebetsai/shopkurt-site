@@ -281,23 +281,10 @@ export default async function HomePage() {
       >
         <div className="container fashionistas-hero-grid">
           <div className="fashionistas-hero-copy">
-            <p className="fashionistas-kicker"><CatchPhrase phrases={["Fashionistas", "Trending this week", "Fresh drops daily", "Editor's picks", "Viral right now"]} interval={3800} /></p>
-            <h1>
-              <CatchPhrase phrases={[
-                "Shoes, accessories, and everyday fashion.",
-                "The looks going viral this week.",
-                "Real styles for real moments.",
-                "Trending drops before they sell out.",
-                "Dressed for wherever life goes.",
-              ]} interval={5000} className="fashionistas-h1-rotator" />
-            </h1>
+            <p className="fashionistas-kicker">Fashionistas</p>
+            <h1>Shoes, accessories, and everyday fashion.</h1>
             <p className="fashionistas-lead">
-              <CatchPhrase phrases={[
-                "Shop the latest drops in shoes, bags, jewelry, and beauty — hand-picked, updated weekly.",
-                "New styles added every week. Free shipping over $50. No guessing.",
-                "The picks going viral on TikTok, sized and shipped from US warehouses.",
-                "Editor-curated shoes, bags, and jewelry. Restocked daily.",
-              ]} interval={6000} className="fashionistas-lead-rotator" />
+              New drops weekly. Free shipping over $50. Hand-picked picks going viral on TikTok.
             </p>
             <div className="fashionistas-hero-actions">
               <Link href="/collections" className="btn btn-primary">
@@ -429,7 +416,6 @@ export default async function HomePage() {
                   </div>
                   <div className="fashionistas-tile-label">
                     <span>{tile.label}</span>
-                    <CatchPhrase phrases={BEST_PHRASES} interval={4000} className="fashionistas-tile-sub" />
                   </div>
                 </Link>
               );
