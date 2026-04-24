@@ -2150,6 +2150,12 @@ img {
     min-height: auto;
   }
 
+  /* On mobile, category card images were full-viewport tall — user can't scroll
+     past to see titles. Cap the image aspect ratio so hero image is ~45% of card. */
+  .fashionistas-category-media {
+    aspect-ratio: 16 / 10;
+  }
+
   .fashionistas-category-copy {
     padding: 20px 18px 22px;
   }
@@ -2334,11 +2340,13 @@ img {
 }
 
 @media (max-width: 900px) {
-  .fashionistas-tile-grid { grid-template-columns: repeat(2, 1fr); }
+  .fashionistas-tile-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 }
 
 @media (max-width: 520px) {
-  .fashionistas-tile-grid { grid-template-columns: 1fr; }
+  /* keep 2 cols on phones — one-per-row was "pictures huge, one at a time, can't read shit" */
+  .fashionistas-tile-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .fashionistas-tile-card { aspect-ratio: 4 / 5; }
 }
 
 /* ===== AESTHETIC TILES ===== */
@@ -2500,7 +2508,7 @@ img {
   gap: 28px;
   white-space: nowrap;
   padding-left: 28px;
-  animation: trendTickerScroll 55s linear infinite;
+  animation: trendTickerScroll 41s linear infinite;
   will-change: transform;
 }
 .fashionistas-trend-ticker:hover .fashionistas-trend-ticker-track {
