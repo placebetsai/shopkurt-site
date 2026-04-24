@@ -2531,7 +2531,7 @@ img {
   gap: 28px;
   white-space: nowrap;
   padding-left: 28px;
-  animation: trendTickerScroll 41s linear infinite;
+  animation: trendTickerScroll 48s linear infinite;
   will-change: transform;
 }
 .fashionistas-trend-ticker:hover .fashionistas-trend-ticker-track {
