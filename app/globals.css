@@ -40,6 +40,7 @@ body {
   color: var(--text);
   line-height: 1.6;
   min-height: 100vh;
+  overflow-x: hidden;  /* defensive — any future rogue-wide child can't push horizontal scroll */
 }
 
 a {

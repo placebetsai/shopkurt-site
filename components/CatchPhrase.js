@@ -35,7 +35,13 @@ export default function CatchPhrase({ phrases = PHRASES, interval = 3200, classN
   return (
     <span
       className={`fashionistas-catchphrase ${className}`}
-      style={{ position: "relative", display: "inline-block", verticalAlign: "baseline", minHeight: "1.2em" }}
+      style={{
+        position: "relative",
+        display: "inline-block",
+        verticalAlign: "baseline",
+        minHeight: "1.2em",
+        maxWidth: "100%",
+      }}
     >
       {phrases.map((p, i) => (
         <span
@@ -46,7 +52,9 @@ export default function CatchPhrase({ phrases = PHRASES, interval = 3200, classN
             top: 0,
             opacity: i === idx ? 1 : 0,
             transition: "opacity 0.5s ease-in-out",
-            whiteSpace: "nowrap",
+            maxWidth: "100%",
+            // no whiteSpace:nowrap — long rotator phrases (hero h1 + lead)
+            // were forcing 700+px widths and bleeding mobile viewport by 33px.
           }}
         >
           {p}
