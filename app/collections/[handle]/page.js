@@ -4,6 +4,7 @@ import {
   getProducts,
   getProductsByCollectionSorted,
 } from '../../../lib/shopify';
+import { getMerchandiseableProducts } from '../../../lib/merchandising';
 
 export const runtime = 'edge';
 export const dynamicParams = true;
@@ -280,6 +281,8 @@ export default async function CollectionPage({ params, searchParams }) {
 
   if (collection && Array.isArray(collection.products)) {
     collection.products = dedupeByHandle(collection.products);
+    const merchOnly = getMerchandiseableProducts(collection.products);
+    if (merchOnly.length > 0) collection.products = merchOnly;
     const tokens = COLLECTION_FALLBACKS[handle];
     if (tokens?.titleTokens?.length) {
       const filtered = filterByTitleTokens(
