@@ -5,6 +5,8 @@ import RotatingCategoryMedia from '../components/RotatingCategoryMedia';
 import { getProducts, getCollections, formatPrice } from '../lib/shopify';
 import { buildCollectionPromos, buildMerchSections, getMerchandiseableProducts } from '../lib/merchandising';
 
+export const runtime = 'edge';
+
 const TRUST_POINTS = [
   'Free shipping over $50',
   'Fast checkout',

@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar';
 import TrendingTicker from '../components/TrendingTicker';
 import { getAvailableCategoryKeys } from '../lib/shopify';
 
+export const runtime = 'edge';
+
 export const metadata = {
   title: 'Fashionistas | Shoes, Accessories & Beauty',
   description:
