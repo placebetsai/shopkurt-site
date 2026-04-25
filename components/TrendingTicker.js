@@ -52,7 +52,7 @@ export default async function TrendingTicker() {
               className="fashionistas-trend-item"
               prefetch={false}
             >
-              <img src={img + '?width=80'} alt={p.title} loading="lazy" width={40} height={40} />
+              <img src={img + (img && img.includes('?') ? '&width=80' : '?width=80')} alt={p.title} loading="lazy" width={40} height={40} />
               <span className="fashionistas-trend-title">{p.title}</span>
               {price && <span className="fashionistas-trend-price">{formatPrice(price)}</span>}
             </Link>
