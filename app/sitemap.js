@@ -35,6 +35,18 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${BASE_URL}/womens-fashion`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${BASE_URL}/womens-shoes`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${BASE_URL}/vacation-sandals`,
       lastModified: new Date().toISOString(),
       changeFrequency: 'weekly',
